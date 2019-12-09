@@ -33,7 +33,7 @@ export default [
     redirect: '/home',
     component: Main,
     meta: {
-      hideInMenu: true,
+      hideInBread: true,
       notCache: true
     },
     children: [
@@ -41,7 +41,6 @@ export default [
         path: '/home',
         name: 'home',
         meta: {
-          hideInMenu: true,
           title: '首页',
           notCache: true,
           icon: 'md-home'
@@ -59,25 +58,6 @@ export default [
       icon: 'ios-book'
     }
   },
-  // {
-  //   path: '/join',
-  //   name: 'join',
-  //   component: Main,
-  //   meta: {
-  //     hideInBread: true
-  //   },
-  //   children: [
-  //     {
-  //       path: 'join_page',
-  //       name: 'join_page',
-  //       meta: {
-  //         icon: '_qq',
-  //         title: 'QQ群'
-  //       },
-  //       component: () => import('@/view/join-page.vue')
-  //     }
-  //   ]
-  // },
   {
     path: '/message',
     name: 'message',
@@ -296,25 +276,6 @@ export default [
     ]
   },
   {
-    path: '/i18n',
-    name: 'i18n',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'i18n_page',
-        name: 'i18n_page',
-        meta: {
-          icon: 'md-planet',
-          title: 'i18n - {{ i18n_page }}'
-        },
-        component: () => import('@/view/i18n/i18n-page.vue')
-      }
-    ]
-  },
-  {
     path: '/error_store',
     name: 'error_store',
     meta: {
@@ -487,4 +448,42 @@ export default [
     },
     component: () => import('@/view/error-page/404.vue')
   }
+  // {
+  //   path: '/i18n',
+  //   name: 'i18n',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'i18n_page',
+  //       name: 'i18n_page',
+  //       meta: {
+  //         icon: 'md-planet',
+  //         title: 'i18n - {{ i18n_page }}'
+  //       },
+  //       component: () => import('@/view/i18n/i18n-page.vue')
+  //     }
+  //   ]
+  // },
+    // {
+  //   path: '/join',
+  //   name: 'join',
+  //   component: Main,
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   children: [
+  //     {
+  //       path: 'join_page',
+  //       name: 'join_page',
+  //       meta: {
+  //         icon: '_qq',
+  //         title: 'QQ群'
+  //       },
+  //       component: () => import('@/view/join-page.vue')
+  //     }
+  //   ]
+  // },
 ]
