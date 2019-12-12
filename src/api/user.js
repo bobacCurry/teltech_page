@@ -5,9 +5,8 @@ export const login = ({ account, password }) => {
     account,
     password
   }
-  console.log(data)
   return axios.request({
-    url: 'api/account/login',
+    url: 'account/login',
     data,
     method: 'post'
   })
@@ -15,7 +14,7 @@ export const login = ({ account, password }) => {
 
 export const getUserInfo = (token) => {
   return axios.request({
-    url: 'get_info',
+    url: 'account/get_info',
     params: {
       token
     },
@@ -25,7 +24,7 @@ export const getUserInfo = (token) => {
 
 export const logout = (token) => {
   return axios.request({
-    url: 'logout',
+    url: 'account/logout',
     method: 'post'
   })
 }
