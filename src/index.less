@@ -1,5 +1,45 @@
 @import '~iview/src/styles/index.less';
 
 @menu-dark-title: #001529;
+
 @menu-dark-active-bg: #000c17;
+
 @layout-sider-background: #001529;
+
+li{
+	list-style-type:none;
+}
+
+.flex-start-center,.flex-center-center,.flex-between-center,.flex-end-center{
+  	display: -webkit-flex; /* Safari */
+  	display: flex;    
+  	flex-direction: row;
+  	align-content:center;  
+  	align-items: center;  
+  	flex-wrap:wrap;
+}
+.flex-center-center{
+  	justify-content: center;
+}
+.flex-start-center{
+  	justify-content: flex-start;
+}
+.flex-between-center{
+  	justify-content: space-between;
+}
+.flex-end-center{
+	justify-content: flex-end
+}
+.flex-start-top,.flex-between-top{
+  	display: -webkit-flex; /* Safari */
+  	display: flex;    
+  	flex-direction: row;
+  	align-items: flex-start;
+  	flex-wrap:wrap;
+}
+.flex-start-top{
+  	justify-content: flex-start;
+}
+.flex-between-top{
+  	justify-content: space-between;
+}

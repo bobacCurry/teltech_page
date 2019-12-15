@@ -50,15 +50,6 @@ export default [
     ]
   },
   {
-    path: '',
-    name: 'doc',
-    meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book'
-    }
-  },
-  {
     path: '/message',
     name: 'message',
     component: Main,
@@ -75,6 +66,77 @@ export default [
           title: '消息中心'
         },
         component: () => import('@/view/single-page/message/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/share',
+    name: 'share',
+    meta: {
+      title: '资源共享',
+      icon: 'ios-book'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'chatid',
+        name: 'share_chatid',
+        meta: {
+          title: '群资源共享'
+        },
+        component: () => import('@/view/share/chatid.vue')
+      },
+      {
+        path: 'bot',
+        name: 'share_bot',
+        meta: {
+          title: '机器人资源共享'
+        },
+        component: () => import('@/view/share/bot.vue')
+      }
+    ]
+  },
+  {
+    path: '/hr_system',
+    name: 'hr_system',
+    meta: {
+      icon: 'logo-buffer',
+      title: '招聘系统',
+      access: ['hr', 'admin']
+    },
+    component: Main,
+    children: [
+      {
+        path: 'base',
+        name: 'hr_base',
+        meta: {
+          title: '基础配置'
+        },
+        component: () => import('@/view/hr/base.vue')
+      },
+      {
+        path: 'client',
+        name: 'hr_client',
+        meta: {
+          title: '客户端配置'
+        },
+        component: () => import('@/view/hr/client.vue')
+      },
+      {
+        path: 'chatid',
+        name: 'hr_chatid',
+        meta: {
+          title: '群配置'
+        },
+        component: () => import('@/view/hr/chatid.vue')
+      },
+      {
+        path: 'order',
+        name: 'hr_order',
+        meta: {
+          title: '订单管理'
+        },
+        component: () => import('@/view/hr/order.vue')
       }
     ]
   },
@@ -449,6 +511,15 @@ export default [
     component: () => import('@/view/error-page/404.vue')
   }
 /**
+  {
+    path: '',
+    name: 'doc',
+    meta: {
+      title: '文档',
+      href: 'https://lison16.github.io/iview-admin-doc/#/',
+      icon: 'ios-book'
+    }
+  },
   {
     path: '/i18n',
     name: 'i18n',
