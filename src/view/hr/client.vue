@@ -8,24 +8,24 @@
 	</div>
 </template>
 <script>
-	export default {
-		data(){
-			return {
-				clientList:[]
-			}
-		},
-		mounted(){
-			this.getClient()
-		},
-		methods:{
-			getClient(){
-				
-			},
-			newClient(){
-				
-			}
-		}
-	}
+export default {
+  data () {
+    return {
+      clientList: []
+    }
+  },
+  mounted () {
+    this.getClient()
+  },
+  methods: {
+    getClient () {
+
+    },
+    newClient () {
+
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .client-item-frame{
