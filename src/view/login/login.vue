@@ -30,6 +30,8 @@ export default {
             name: this.$config.homeName
           })
         })
+      }).catch((e)=>{
+        this.$Notice.error({title:e.response.data.msg})
       })
     }
   }

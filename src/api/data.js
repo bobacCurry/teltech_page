@@ -23,7 +23,7 @@ export const errorReq = () => {
 
 export const saveErrorLogger = info => {
   return axios.request({
-    url: 'save_error_logger',
+    url: 'data/save_error_logger',
     data: info,
     method: 'post'
   })

@@ -1,6 +1,10 @@
 import axios from 'axios'
 import store from '@/store'
+import { getToken } from './util'
 // import { Spin } from 'iview'
+
+const token = getToken()
+
 const addErrorLog = errorInfo => {
   const { statusText, status, request: { responseURL } } = errorInfo
   let info = {
@@ -21,7 +25,7 @@ class HttpRequest {
     const config = {
       baseURL: this.baseUrl,
       headers: {
-        //
+        token
       }
     }
     return config

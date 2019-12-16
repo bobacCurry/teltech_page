@@ -87,6 +87,14 @@ export default [
         component: () => import('@/view/share/chatid.vue')
       },
       {
+        path: 'client',
+        name: 'hr_client',
+        meta: {
+          title: '客户端绑定'
+        },
+        component: () => import('@/view/share/client.vue')
+      },
+      {
         path: 'bot',
         name: 'share_bot',
         meta: {
@@ -113,14 +121,6 @@ export default [
           title: '基础配置'
         },
         component: () => import('@/view/hr/base.vue')
-      },
-      {
-        path: 'client',
-        name: 'hr_client',
-        meta: {
-          title: '客户端配置'
-        },
-        component: () => import('@/view/hr/client.vue')
       },
       {
         path: 'chatid',
