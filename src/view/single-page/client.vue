@@ -82,7 +82,6 @@ export default {
           this.clientList = r.data.msg
     
         }
-    
       })
     },
     sendCode () {

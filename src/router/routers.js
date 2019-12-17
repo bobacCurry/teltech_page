@@ -34,18 +34,26 @@ export default [
     component: Main,
     meta: {
       hideInBread: true,
-      notCache: true
+      notCache: true,      
+      title: '基础配置',
+      icon: 'md-home'
     },
     children: [
       {
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页',
-          notCache: true,
-          icon: 'md-home'
+          title: '首页'
         },
         component: () => import('@/view/single-page/home')
+      },
+      {
+        path: 'client',
+        name: 'client',
+        meta: {
+          title: '绑定实例'
+        },
+        component: () => import('@/view/single-page/client.vue')
       }
     ]
   },
@@ -70,6 +78,49 @@ export default [
     ]
   },
   {
+    path: '/service_system',
+    name: 'service_system',
+    meta: {
+      icon: 'logo-buffer',
+      title: '服务项目'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'jobs',
+        name: 'service_jobs',
+        meta: {
+          title: '招聘信息群发'
+        },
+        component: () => import('@/view/service/jobs.vue')
+      },
+      {
+        path: 'market',
+        name: 'service_market',
+        meta: {
+          title: '推广信息群发'
+        },
+        component: () => import('@/view/service/market.vue')
+      },
+      {
+        path: 'foods',
+        name: 'service_foods',
+        meta: {
+          title: '美食信息群发'
+        },
+        component: () => import('@/view/service/foods.vue')
+      },
+      {
+        path: 'personal',
+        name: 'service_person',
+        meta: {
+          title: '信息批量私发'
+        },
+        component: () => import('@/view/service/person.vue')
+      }
+    ]
+  },
+  {
     path: '/share',
     name: 'share',
     meta: {
@@ -79,20 +130,12 @@ export default [
     component: Main,
     children: [
       {
-        path: 'chatid',
-        name: 'share_chatid',
+        path: 'chat',
+        name: 'share_chat',
         meta: {
           title: '群资源共享'
         },
-        component: () => import('@/view/share/chatid.vue')
-      },
-      {
-        path: 'client',
-        name: 'hr_client',
-        meta: {
-          title: '绑定实例'
-        },
-        component: () => import('@/view/share/client.vue')
+        component: () => import('@/view/share/chat.vue')
       },
       {
         path: 'bot',
@@ -101,42 +144,6 @@ export default [
           title: '机器人资源共享'
         },
         component: () => import('@/view/share/bot.vue')
-      }
-    ]
-  },
-  {
-    path: '/hr_system',
-    name: 'hr_system',
-    meta: {
-      icon: 'logo-buffer',
-      title: '招聘系统',
-      access: ['hr', 'admin']
-    },
-    component: Main,
-    children: [
-      {
-        path: 'base',
-        name: 'hr_base',
-        meta: {
-          title: '基础配置'
-        },
-        component: () => import('@/view/hr/base.vue')
-      },
-      {
-        path: 'chatid',
-        name: 'hr_chatid',
-        meta: {
-          title: '群配置'
-        },
-        component: () => import('@/view/hr/chatid.vue')
-      },
-      {
-        path: 'order',
-        name: 'hr_order',
-        meta: {
-          title: '订单管理'
-        },
-        component: () => import('@/view/hr/order.vue')
       }
     ]
   },
@@ -259,202 +266,202 @@ export default [
       }
     ]
   },
-  {
-    path: '/update',
-    name: 'update',
-    meta: {
-      icon: 'md-cloud-upload',
-      title: '数据上传'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'update_table_page',
-        name: 'update_table_page',
-        meta: {
-          icon: 'ios-document',
-          title: '上传Csv'
-        },
-        component: () => import('@/view/update/update-table.vue')
-      },
-      {
-        path: 'update_paste_page',
-        name: 'update_paste_page',
-        meta: {
-          icon: 'md-clipboard',
-          title: '粘贴表格数据'
-        },
-        component: () => import('@/view/update/update-paste.vue')
-      }
-    ]
-  },
-  {
-    path: '/excel',
-    name: 'excel',
-    meta: {
-      icon: 'ios-stats',
-      title: 'EXCEL导入导出'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'upload-excel',
-        name: 'upload-excel',
-        meta: {
-          icon: 'md-add',
-          title: '导入EXCEL'
-        },
-        component: () => import('@/view/excel/upload-excel.vue')
-      },
-      {
-        path: 'export-excel',
-        name: 'export-excel',
-        meta: {
-          icon: 'md-download',
-          title: '导出EXCEL'
-        },
-        component: () => import('@/view/excel/export-excel.vue')
-      }
-    ]
-  },
-  {
-    path: '/tools_methods',
-    name: 'tools_methods',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'tools_methods_page',
-        name: 'tools_methods_page',
-        meta: {
-          icon: 'ios-hammer',
-          title: '工具方法',
-          beforeCloseName: 'before_close_normal'
-        },
-        component: () => import('@/view/tools-methods/tools-methods.vue')
-      }
-    ]
-  },
-  {
-    path: '/error_store',
-    name: 'error_store',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'error_store_page',
-        name: 'error_store_page',
-        meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
-        },
-        component: () => import('@/view/error-store/error-store.vue')
-      }
-    ]
-  },
-  {
-    path: '/error_logger',
-    name: 'error_logger',
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'error_logger_page',
-        name: 'error_logger_page',
-        meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
-        },
-        component: () => import('@/view/single-page/error-logger.vue')
-      }
-    ]
-  },
-  {
-    path: '/directive',
-    name: 'directive',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'directive_page',
-        name: 'directive_page',
-        meta: {
-          icon: 'ios-navigate',
-          title: '指令'
-        },
-        component: () => import('@/view/directive/directive.vue')
-      }
-    ]
-  },
-  {
-    path: '/multilevel',
-    name: 'multilevel',
-    meta: {
-      icon: 'md-menu',
-      title: '多级菜单'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'level_2_1',
-        name: 'level_2_1',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-1'
-        },
-        component: () => import('@/view/multilevel/level-2-1.vue')
-      },
-      {
-        path: 'level_2_2',
-        name: 'level_2_2',
-        meta: {
-          access: ['super_admin'],
-          icon: 'md-funnel',
-          showAlways: true,
-          title: '二级-2'
-        },
-        component: parentView,
-        children: [
-          {
-            path: 'level_2_2_1',
-            name: 'level_2_2_1',
-            meta: {
-              icon: 'md-funnel',
-              title: '三级'
-            },
-            component: () => import('@/view/multilevel/level-2-2/level-2-2-1.vue')
-          },
-          {
-            path: 'level_2_2_2',
-            name: 'level_2_2_2',
-            meta: {
-              icon: 'md-funnel',
-              title: '三级'
-            },
-            component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
-          }
-        ]
-      },
-      {
-        path: 'level_2_3',
-        name: 'level_2_3',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-3'
-        },
-        component: () => import('@/view/multilevel/level-2-3.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/update',
+  //   name: 'update',
+  //   meta: {
+  //     icon: 'md-cloud-upload',
+  //     title: '数据上传'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'update_table_page',
+  //       name: 'update_table_page',
+  //       meta: {
+  //         icon: 'ios-document',
+  //         title: '上传Csv'
+  //       },
+  //       component: () => import('@/view/update/update-table.vue')
+  //     },
+  //     {
+  //       path: 'update_paste_page',
+  //       name: 'update_paste_page',
+  //       meta: {
+  //         icon: 'md-clipboard',
+  //         title: '粘贴表格数据'
+  //       },
+  //       component: () => import('@/view/update/update-paste.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/excel',
+  //   name: 'excel',
+  //   meta: {
+  //     icon: 'ios-stats',
+  //     title: 'EXCEL导入导出'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'upload-excel',
+  //       name: 'upload-excel',
+  //       meta: {
+  //         icon: 'md-add',
+  //         title: '导入EXCEL'
+  //       },
+  //       component: () => import('@/view/excel/upload-excel.vue')
+  //     },
+  //     {
+  //       path: 'export-excel',
+  //       name: 'export-excel',
+  //       meta: {
+  //         icon: 'md-download',
+  //         title: '导出EXCEL'
+  //       },
+  //       component: () => import('@/view/excel/export-excel.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/tools_methods',
+  //   name: 'tools_methods',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'tools_methods_page',
+  //       name: 'tools_methods_page',
+  //       meta: {
+  //         icon: 'ios-hammer',
+  //         title: '工具方法',
+  //         beforeCloseName: 'before_close_normal'
+  //       },
+  //       component: () => import('@/view/tools-methods/tools-methods.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/error_store',
+  //   name: 'error_store',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'error_store_page',
+  //       name: 'error_store_page',
+  //       meta: {
+  //         icon: 'ios-bug',
+  //         title: '错误收集'
+  //       },
+  //       component: () => import('@/view/error-store/error-store.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/error_logger',
+  //   name: 'error_logger',
+  //   meta: {
+  //     hideInBread: true,
+  //     hideInMenu: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'error_logger_page',
+  //       name: 'error_logger_page',
+  //       meta: {
+  //         icon: 'ios-bug',
+  //         title: '错误收集'
+  //       },
+  //       component: () => import('@/view/single-page/error-logger.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/directive',
+  //   name: 'directive',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'directive_page',
+  //       name: 'directive_page',
+  //       meta: {
+  //         icon: 'ios-navigate',
+  //         title: '指令'
+  //       },
+  //       component: () => import('@/view/directive/directive.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/multilevel',
+  //   name: 'multilevel',
+  //   meta: {
+  //     icon: 'md-menu',
+  //     title: '多级菜单'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'level_2_1',
+  //       name: 'level_2_1',
+  //       meta: {
+  //         icon: 'md-funnel',
+  //         title: '二级-1'
+  //       },
+  //       component: () => import('@/view/multilevel/level-2-1.vue')
+  //     },
+  //     {
+  //       path: 'level_2_2',
+  //       name: 'level_2_2',
+  //       meta: {
+  //         access: ['super_admin'],
+  //         icon: 'md-funnel',
+  //         showAlways: true,
+  //         title: '二级-2'
+  //       },
+  //       component: parentView,
+  //       children: [
+  //         {
+  //           path: 'level_2_2_1',
+  //           name: 'level_2_2_1',
+  //           meta: {
+  //             icon: 'md-funnel',
+  //             title: '三级'
+  //           },
+  //           component: () => import('@/view/multilevel/level-2-2/level-2-2-1.vue')
+  //         },
+  //         {
+  //           path: 'level_2_2_2',
+  //           name: 'level_2_2_2',
+  //           meta: {
+  //             icon: 'md-funnel',
+  //             title: '三级'
+  //           },
+  //           component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'level_2_3',
+  //       name: 'level_2_3',
+  //       meta: {
+  //         icon: 'md-funnel',
+  //         title: '二级-3'
+  //       },
+  //       component: () => import('@/view/multilevel/level-2-3.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/argu',
     name: 'argu',
