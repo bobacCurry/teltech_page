@@ -90,7 +90,7 @@ export default [
         path: 'client',
         name: 'hr_client',
         meta: {
-          title: '客户端绑定'
+          title: '绑定实例'
         },
         component: () => import('@/view/share/client.vue')
       },

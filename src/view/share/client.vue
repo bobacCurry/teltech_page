@@ -3,9 +3,11 @@
 		<ul class="flex-start-center">
 			<li class="client-item-frame" v-for="(item,key) in clientList" :key="key">
 				<Card class="client-item">
-          <div>客户端账号：</div>
-          <div>客户端用户名：</div>
-          <div>客户端状态：</div>
+          <div class="item-info">实例信息</div>
+          <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
+          <div class="item-info">TG用户名：{{item.name?item.name:"获取"}}</div>
+          <div class="item-info">服务类型：{{item.type | getType}}</div>
+          <div class="item-info">实例状态：{{item.status | getStatus}}</div>
         </Card>
 			</li>
       <li class="client-item-frame">
@@ -29,7 +31,7 @@
               </Input>
             </div>
             <div class="bind-item">
-              <Button @click="newClient.binding=false" type="error">取消绑定</Button>
+              <Button @click="cancelConfirm" type="error">取消绑定</Button>
             </div>
           </div>
         </Card>
@@ -39,12 +41,13 @@
 </template>
 <script>
 import {getUserClient,sendCode,confirmCode} from '@/api/share'
-import client from '@/config/client'
+import {serviceType,clientStatus} from '@/config/client'
 export default {
   data () {
     return {
       clientList: [],
-      serviceType:client.serviceType,
+      serviceType:serviceType,
+      clientStatus:clientStatus,
       newClient:{
         binding:false,
         phone:'',
@@ -55,11 +58,21 @@ export default {
       countdown:null
     }
   },
+  filters: {
+    getType:(value)=>{
+      
+      return serviceType[value]
+    
+    },
+    getStatus:(value)=>{
+
+      return clientStatus[value]
+    }
+  },
   mounted () {
     this.getClient()
   },
   methods: {
-    
     getClient () {
     
       getUserClient().then((r)=>{
@@ -138,15 +151,23 @@ export default {
     },
     cancelConfirm(){
       
-      if (this.newClient.phone.trim()&&this.newClient.timer&&this.newClient.code) {
+      if (this.newClient.phone.trim()&&this.newClient.timer) {
       
-        confirmCode(this.newClient.phone,this.newClient.code).then((r)=>{
+        confirmCode(this.newClient.phone,'1111').then((r)=>{
       
           console.log(r.data)
       
         }) 
       }
       
+      this.newClient.binding = false
+
+      this.newClient.phone = ''
+
+      this.newClient.code = ''
+
+      this.newClient.type = null
+
       this.stopCount()
     },
     startCount(){
@@ -180,6 +201,9 @@ export default {
 	height: 200px;
 	.client-item{
 		height: 100%;
+    .item-info{
+      margin-top: 10px;
+    }
     .bind-item{
       margin-top: 10px;
     }
