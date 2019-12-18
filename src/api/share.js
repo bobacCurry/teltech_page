@@ -20,3 +20,18 @@ export const confirmCode = (phone,code) => {
 	    method: 'post'
 	})
 }
+
+
+export const addChat = (chatid,chatType,auth) => {
+  	return axios.request({
+    	url: `service/chat/add_chat/${chatid}/${chatType}/${auth}`,
+    	method: 'post'
+  	})
+}
+
+export const getUserChat = (page,limit) => {
+  	return axios.request({
+    	url: `service/chat/get_user_chat/${page}/${limit}`,
+    	method: 'get'
+  	})
+}
