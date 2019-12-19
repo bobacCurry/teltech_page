@@ -28,6 +28,34 @@ export default [
     component: () => import('@/view/login/login.vue')
   },
   {
+    path: '/admin',
+    name: 'admin',
+    meta: {      
+      title: '管理员',
+      icon: 'md-ionitron',
+      access: ['admin'],
+    },
+    component: Main,
+    children: [
+      {
+        path: 'chat',
+        name: 'admin_chat',
+        meta: {
+          title: '群组审核'
+        },
+        component: () => import('@/view/admin/chat')
+      },
+      {
+        path: 'order',
+        name: 'admin_order',
+        meta: {
+          title: '订单审核'
+        },
+        component: () => import('@/view/admin/order')
+      }
+    ]
+  },
+  {
     path: '/',
     name: '_home',
     redirect: '/home',
@@ -54,26 +82,6 @@ export default [
           title: '绑定实例'
         },
         component: () => import('@/view/single-page/client.vue')
-      }
-    ]
-  },
-  {
-    path: '/message',
-    name: 'message',
-    component: Main,
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    children: [
-      {
-        path: 'message_page',
-        name: 'message_page',
-        meta: {
-          icon: 'md-notifications',
-          title: '消息中心'
-        },
-        component: () => import('@/view/single-page/message/index.vue')
       }
     ]
   },
@@ -263,6 +271,26 @@ export default [
           title: '自定义图标'
         },
         component: () => import('@/view/components/icons/icons.vue')
+      }
+    ]
+  },
+  {
+    path: '/message',
+    name: 'message',
+    component: Main,
+    meta: {
+      hideInBread: true,
+      hideInMenu: true
+    },
+    children: [
+      {
+        path: 'message_page',
+        name: 'message_page',
+        meta: {
+          icon: 'md-notifications',
+          title: '消息中心'
+        },
+        component: () => import('@/view/single-page/message/index.vue')
       }
     ]
   },
