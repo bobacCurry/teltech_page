@@ -24,15 +24,30 @@ import {addChat,getUserChat} from '@/api/share'
 export default {
 	data(){
 		let columns = [
-				{title:'群名称',key:'chatid'},
+				{title:'群名称',key:'chatid',render: (h, params) => {
+	                return h('a',{
+	                	domProps:{
+	                		href: 'https://t.me/'+params.row.chatid,
+                        	target:'_blank'
+	                	}
+	                },params.row.chatid)
+	            }},
 				{title:'群类型',key:'type',render: (h, params) => {
 	                return h('span',chatType[params.row.type])
 	            }},
 				{title:'是否入群验证',key:'auth',render: (h, params) => {
-	                return h('span',params.row.type?'需要':'不需要')
+	                return h('span',{
+	                	style:{
+	                		color: params.row.auth?'red':''
+	                	}
+	                },params.row.auth?'需要':'不需要')
 	            }},
 				{title:'审核状态',key:'status',render: (h, params) => {
-	                return h('span',params.row.status?'已通过':'未通过')
+	                return h('span',{
+	                	style:{
+	                		color: params.row.status?'red':''
+	                	}
+	                },params.row.status?'已通过':'未通过')
 	            }}
 			]
 		return {
