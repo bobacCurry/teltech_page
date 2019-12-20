@@ -98,7 +98,7 @@ export default [
         path: 'group',
         name: 'service_group',
         meta: {
-          title: '信息批量群发'
+          title: '广告定时群发'
         },
         component: () => import('@/view/service/group.vue')
       },
@@ -106,7 +106,7 @@ export default [
         path: 'personal',
         name: 'service_person',
         meta: {
-          title: '信息批量私发'
+          title: '广告批量私发'
         },
         component: () => import('@/view/service/person.vue')
       }
