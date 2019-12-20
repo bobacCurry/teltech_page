@@ -95,28 +95,12 @@ export default [
     component: Main,
     children: [
       {
-        path: 'jobs',
-        name: 'service_jobs',
+        path: 'group',
+        name: 'service_group',
         meta: {
-          title: '招聘信息群发'
+          title: '信息批量群发'
         },
-        component: () => import('@/view/service/jobs.vue')
-      },
-      {
-        path: 'market',
-        name: 'service_market',
-        meta: {
-          title: '推广信息群发'
-        },
-        component: () => import('@/view/service/market.vue')
-      },
-      {
-        path: 'foods',
-        name: 'service_foods',
-        meta: {
-          title: '美食信息群发'
-        },
-        component: () => import('@/view/service/foods.vue')
+        component: () => import('@/view/service/group.vue')
       },
       {
         path: 'personal',
