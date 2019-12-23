@@ -5,20 +5,15 @@
 				<Card class="client-item">
           <div class="item-info">实例信息</div>
           <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
-          <div class="item-info">TG用户名：{{item.name?item.name:"获取"}}</div>
-          <div class="item-info">服务类型：{{item.type | getType}}</div>
+          <div class="item-info">TG用户名：<a v-if="!item.name">获取</a><span v-else>{{item.name}}</span></div>
           <div class="item-info">实例状态：{{item.status | getStatus}}</div>
+          <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
         </Card>
 			</li>
       <li class="client-item-frame">
         <Card class="client-item">
           <Button v-if="!newClient.binding" @click="newClient.binding=true">点击绑定客户端</Button>
           <div v-else>
-            <div class="bind-item">
-               <Select v-model="newClient.type" style="width:200px">
-                <Option v-for="(item,key) in serviceType" :key="key" :value="key">{{ item }}</Option>
-              </Select>
-            </div>
             <div class="bind-item">
               <Input v-model="newClient.phone" placeholder="TG账号（带国家区号）">
                 <Button slot="append" style="width: 100px" v-if="newClient.timer" :disabled="newClient.timer>0">已发送 {{newClient.timer}}s</Button>
@@ -85,28 +80,19 @@ export default {
       })
     },
     sendCode () {
-      
-      if (this.newClient.type===null) {
-      
-        return this.$Notice.error({title:"请选择服务类型"})
-      
-      }
-      
       if (!this.newClient.phone.trim()) {
       
         return this.$Notice.error({title:"请输入telegram账号"})
       
       }
       
-      sendCode(this.newClient.phone,this.newClient.type).then((r)=>{
+      sendCode(this.newClient.phone).then((r)=>{
         
         if (r.data.success) {
 
           this.newClient.phone = ''
 
           this.newClient.code = ''
-
-          this.newClient.type = null
 
           this.newClient.binding=false
 
@@ -197,9 +183,8 @@ export default {
 <style lang="scss" scoped>
 .client-item-frame{
 	width: 25%;
-	height: 200px;
+	height: 160px;
 	.client-item{
-		height: 100%;
     .item-info{
       margin-top: 10px;
     }

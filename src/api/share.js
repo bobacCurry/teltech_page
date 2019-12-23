@@ -7,9 +7,9 @@ export const getUserClient = () => {
   	})
 }
 
-export const sendCode = (phone,type) => {
+export const sendCode = (phone) => {
 	return axios.request({
-	    url: `service/auth/send_code/${phone}/${type}`,
+	    url: `service/auth/send_code/${phone}`,
 	    method: 'post'
 	})
 }
