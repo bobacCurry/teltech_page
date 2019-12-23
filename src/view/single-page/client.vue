@@ -6,7 +6,7 @@
           <div class="item-info">实例信息</div>
           <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
           <div class="item-info">TG用户名：<a v-if="!item.name">获取</a><span v-else>{{item.name}}</span></div>
-          <div class="item-info">实例状态：{{item.status | getStatus}}</div>
+          <div class="item-info">实例状态：{{clientStatus[item.status]}}</div>
           <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
         </Card>
 			</li>
@@ -26,7 +26,7 @@
               </Input>
             </div>
             <div class="bind-item">
-              <Button @click="cancelConfirm" type="error">取消绑定</Button>
+              <Button @click="cancelConfirm" type="error" class="cancel-bind">取消绑定</Button>
             </div>
           </div>
         </Card>
@@ -41,7 +41,6 @@ export default {
   data () {
     return {
       clientList: [],
-      serviceType:serviceType,
       clientStatus:clientStatus,
       newClient:{
         binding:false,
@@ -51,17 +50,6 @@ export default {
         timer:0
       },
       countdown:null
-    }
-  },
-  filters: {
-    getType:(value)=>{
-      
-      return serviceType[value]
-    
-    },
-    getStatus:(value)=>{
-
-      return clientStatus[value]
     }
   },
   mounted () {
@@ -113,6 +101,7 @@ export default {
       }).finally(()=>{
       
         this.stopCount()
+        
       })
       
       this.startCount()
@@ -136,6 +125,8 @@ export default {
     },
     cancelConfirm(){
       
+
+
       if (this.newClient.phone.trim()&&this.newClient.timer) {
       
         confirmCode(this.newClient.phone,'1111').then((r)=>{
@@ -183,13 +174,16 @@ export default {
 <style lang="scss" scoped>
 .client-item-frame{
 	width: 25%;
-	height: 160px;
 	.client-item{
+    height: 200px;
     .item-info{
       margin-top: 10px;
     }
     .bind-item{
       margin-top: 10px;
+      .cancel-bind{
+        margin-top: 20px;
+      }
     }
 	}
 }

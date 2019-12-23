@@ -5,8 +5,8 @@
 			<Card class="order-item">
 	          	<div class="item-info">订单号： {{item._id}}</div>
 	          	<div class="item-info">服务类型： {{serviceType[item.type]}}</div>
-	          	<div class="item-info" v-if="item.status==0">购买天数： {{item.days}} 天 </div>
-	          	<div class="item-info" v-if="item.status==1">购买个数： {{item.nums}} 个</div>
+	          	<div class="item-info" v-if="item.type==0">购买天数： {{item.days}} 天 </div>
+	          	<div class="item-info" v-if="item.type==1">购买个数： {{item.nums}} 个</div>
 	          	<div class="item-info">订单状态： {{item.status==1?'已完成':'未完成'}}</div>
 	          	<div class="item-info">订单备注： {{item.memo}}</div>
 	          	<div class="item-info">

@@ -1,3 +1,3 @@
 <template>
-	<div>6666666666</div>
+	<div>暂未开通（预计2020.01.10开通）</div>
 </template>

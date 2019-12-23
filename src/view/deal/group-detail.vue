@@ -1,30 +1,30 @@
 <template>
-	<div class="service-group">
+	<div class="service-group-detail">
 		<div class="flex-between-center title">
 			<h2>创建服务订单</h2>
-			<div><Button type="primary" @click="addPush">保存服务</Button></div>
+			<div><Button type="primary" @click="updatePush">保存服务</Button></div>
 		</div>
 		<div class="content">
 			<div class="content-title">业务配置</div>
 			<div class="flex-start-center">
 				<div class="option-item">
-					<Select v-model="order.chat_type" style="width:200px" placeholder="广告业务类型" @on-change="changeChatType">
-				        <Option v-for="(item,key) in this.chatType" :value="key" :key="key">{{ item }}</Option>
+					<Select v-model="order.chat_type" :disabled="true" style="width:200px" placeholder="广告业务类型" >
+				        <Option v-for="(item,key) in chatType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
 					<Select v-model="order.text_type" style="width:200px" placeholder="广告文本类型">
-				        <Option v-for="(item,key) in this.textType" :value="key" :key="key">{{ item }}</Option>
+				        <Option v-for="(item,key) in textType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
 					<Select v-model="order.phone" style="width:200px" placeholder="选择TG实例">
-				        <Option v-for="(item,key) in this.clientList" :value="item.phone" :key="key">{{ item.phone }}</Option>
+				        <Option v-for="(item,key) in phoneList" :value="item.phone" :key="key">{{ item.phone }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
-				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
+				        <Option v-for="(item,key) in minuteList" :value="item" :key="key">
 				        	{{ item }} 分 - {{item + 20}} 分 -  {{item + 40}} 分
 				        </Option>
 				    </Select>
@@ -62,9 +62,10 @@
 import {chatType,textType,minuteList} from '@/config/client'
 import {getChat} from '@/api/admin'
 import {getNotUsed} from '@/api/client'
-import {addPush} from '@/api/service'
+import {updatePush,getOnePush} from '@/api/service'
 export default{
 	mounted(){
+		this.getDetail(this.$route.params._id)
 		this.getChat()
 		this.getClient()
 	},
@@ -75,19 +76,37 @@ export default{
 			minuteList,
 			clientList:[],
 			chatList:[],
+			phone:'',
 			order:{
 				chat_type:0,
 				text_type:'',
 				phone:'',
 				chat:[],
 				text:'',
-				media:'http://static.feijishu.club/static/common/5d8b0eb3f14c0651e657fc96_1571706927274.jpeg',
+				media:'',
 				caption:'',
 				minute:''
 			}
 		}
 	},
+	computed:{
+		phoneList(){
+			return [...this.clientList,{phone:this.phone}]
+		}
+	},
 	methods:{
+		getDetail(_id){
+			getOnePush(_id).then((r)=>{
+				if (!r.data.success) {
+					this.$Notice.error({title:'服务信息不存在'})
+					return this.$router.go(-1)
+				}else{
+					this.order = r.data.msg
+					this.phone = r.data.msg.phone
+					this.order.minute = r.data.msg.minute[0]
+				}
+			})
+		},
 		getClient(){
 			getNotUsed().then((r)=>{
 				if (r.data.success) {
@@ -103,12 +122,12 @@ export default{
 			})
 		},
 		changeChatType(e){
-			
+				
 			this.order.chat_type = e
 			
 			this.getChat()
 		},
-		addPush(){
+		updatePush(){
 			if (!String(this.order.chat_type)) {
 				return this.$Notice.error({title:'请选择服务类型'})
 			}
@@ -130,13 +149,17 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			addPush(this.order).then((r)=>{
+			updatePush(this.$route.params._id,this.order).then((r)=>{
 
 				if (r.data.success) {
 					
 					this.$router.push('/deal/service')
 
 					return this.$Notice.success({title:r.data.msg})
+
+				}else{
+					
+					return this.$Notice.error({title:r.data.msg})
 				}
 			}).catch((e)=>{
 			
@@ -147,7 +170,7 @@ export default{
 }	
 </script>
 <style lang="scss" scoped>
-.service-group{
+.service-group-detail{
 	.title,.content{
 		background-color: #ffffff;
 		padding:20px;

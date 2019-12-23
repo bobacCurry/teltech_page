@@ -3,15 +3,18 @@
 		<ul class="flex-start-center">
 			<li class="service-item-frame" v-for="(item,key) in serviceList" :key="key">
 				<Card class="service-item">
-		          	<div class="item-info">TG实例： {{item.phone}}</div>
+		          	<div class="item-info">TG实例： {{item.phone}} </div>
 		          	<div class="item-info">服务类型： {{chatType[item.chat_type]}}</div>
 		          	<div class="item-info">文本类型： {{textType[item.text_type]}}</div>
-		          	<div class="item-info">开启状态： {{item.status==1?'已开启':'未开启'}} （<a>{{item.status==1?'关闭':'开启'}}</a>）</div>
+		          	<div class="item-info">开启状态： 
+		          		<span v-if="item.status==1" style="color: green">已开启</span><span v-else style="color: red">未开启</span>（<a @click="changeStatus(item._id,key)">{{item.status==1?'点击关闭':'点击开启'}}</a>）
+		          	</div>
 		          	<div class="item-info">
 		          		到期时间： 
 		          		<span v-if="item.deadline">{{item.deadline|deadline}}<a @click="order.sid=item._id;show=true">（续时）</a></span>
 		          		<span v-else>未购买<a @click="order.sid=item._id;show=true">（点击下单）</a></span>
 		          	</div>
+		          	<div class="item-info"><a @click="$router.push('/deal/service-detail/'+item._id)">查看服务详情</a></div>
 		        </Card>
 			</li>
 		</ul>
@@ -26,7 +29,7 @@
 	</div>
 </template>
 <script>
-import {getPush} from '@/api/service'
+import {getPush,changeStatus} from '@/api/service'
 import {addGroupOrder} from '@/api/order'
 import {chatType,textType} from '@/config/client'
 import {groupFee} from '@/config/order'
@@ -71,16 +74,50 @@ export default{
 			})
 		},
 		addOrder(){
+
+			if (!this.order.sid) {
+
+				return this.$Notice.error({title:'服务数据有误'})
+			
+			}
+
+			if (!String(this.order.days)) {
+
+				return this.$Notice.error({title:'请选择购买天数'})
+			
+			}
+
 			addGroupOrder(this.order).then((r)=>{
+
 				if (r.data.success) {
+
+					this.$router.push('/deal/order')
+
 					return this.$Notice.success({title:r.data.msg})
+
 				}else{
+
 					return this.$Notice.error({title:r.data.msg})
 				}
 			})
 		},
 		cancel(){
 			this.order.sid = ''
+		},
+		changeStatus(_id,key){
+			changeStatus(_id).then((r)=>{
+				
+				if (!r.data.success) {
+				
+					return this.$Notice.error({title:r.data.msg})
+				
+				}else{
+
+					this.serviceList[key].status = r.data.status
+
+					return this.$Notice.success({title:r.data.msg})
+				}
+			})
 		}
 	}
 }	
@@ -90,7 +127,7 @@ export default{
 	.service-item-frame{
 		width: 25%;
 		.service-item{
-			height: 200px;
+			height: 230px;
 			.item-info{
 				margin-top: 10px;
 			}
