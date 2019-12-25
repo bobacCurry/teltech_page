@@ -1,3 +1,3 @@
 <template>
-	<div>bot</div>
+	<div>开发中。。。</div>
 </template>

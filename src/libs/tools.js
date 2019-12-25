@@ -100,6 +100,8 @@ const getDate = (timeStamp, startType) => {
   return resStr
 }
 
+export const getTime = getDate
+
 /**
  * @param {String|Number} timeStamp 时间戳
  * @returns {String} 相对时间字符串

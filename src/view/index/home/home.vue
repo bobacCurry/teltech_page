@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <Row :gutter="20">
+  <div class="user-info">
+    <div class="user-info-item"><b>{{user.userName}}</b> 欢迎登陆多元推广系统！</div>
+<!--     <Row :gutter="20">
       <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
         <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
           <count-to :end="infor.count" count-class="count-style"/>
@@ -24,10 +25,9 @@
       <Card shadow>
         <example style="height: 310px;"/>
       </Card>
-    </Row>
+    </Row> -->
   </div>
 </template>
-
 <script>
 import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
@@ -70,14 +70,27 @@ export default {
       }
     }
   },
+  computed:{
+    user(){
+      return this.$store.state.user
+    }
+  },
   mounted () {
-    //
+    
+  },
+  methods:{
+    
   }
 }
 </script>
 
-<style lang="less">
+<style lang="scss" scoped>
 .count-style{
   font-size: 50px;
+}
+.user-info{
+  .user-info-item{
+    font-size: 16px;
+  }
 }
 </style>

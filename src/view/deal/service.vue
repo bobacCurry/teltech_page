@@ -11,7 +11,7 @@
 		          	</div>
 		          	<div class="item-info">
 		          		到期时间： 
-		          		<span v-if="item.deadline">{{item.deadline|deadline}}<a @click="order.sid=item._id;show=true">（续时）</a></span>
+		          		<span v-if="item.expire">{{item.expire|expire}}<a @click="order.sid=item._id;show=true">（续时）</a></span>
 		          		<span v-else>未购买<a @click="order.sid=item._id;show=true">（点击下单）</a></span>
 		          	</div>
 		          	<div class="item-info"><a @click="$router.push('/deal/service-detail/'+item._id)">查看服务详情</a></div>
@@ -38,7 +38,7 @@ export default{
 		this.getService()
 	},
 	filters:{
-		deadline(e){
+		expire(e){
 
 			let date = new Date(e*1000)
 

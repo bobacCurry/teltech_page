@@ -18,6 +18,9 @@ export default {
     avatarImgPath: '',
     token: getToken(),
     access: '',
+    vip:0,
+    vipExpire:0,
+    money:0,
     hasGetInfo: false,
     unreadCount: 0,
     messageUnreadList: [],
@@ -37,6 +40,15 @@ export default {
     },
     setAccess (state, access) {
       state.access = access
+    },
+    setVip (state, vip) {
+      state.vip = vip
+    },
+    setVipExpire (state, vipExpire) {
+      state.vipExpire = vipExpire
+    },
+    setMoney (state, money) {
+      state.money = money
     },
     setToken (state, token) {
       state.token = token
@@ -115,6 +127,9 @@ export default {
             commit('setUserName', data.name)
             commit('setUserId', data.user_id)
             commit('setAccess', data.access)
+            commit('setVip', data.vip)
+            commit('setVipExpire', data.vip_expire)
+            commit('setMoney', data.money)
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {

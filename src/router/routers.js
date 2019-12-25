@@ -73,7 +73,7 @@ export default [
         meta: {
           title: '首页'
         },
-        component: () => import('@/view/single-page/home')
+        component: () => import('@/view/index/home')
       },
       {
         path: 'client',
@@ -81,7 +81,24 @@ export default [
         meta: {
           title: '绑定实例'
         },
-        component: () => import('@/view/single-page/client.vue')
+        component: () => import('@/view/index/client.vue')
+      },
+      {
+        path: '/add_chat',
+        name: 'add_chat',
+        meta: {
+          title: '自动加群'
+        },
+        component: () => import('@/view/index/add-chat.vue')
+      },
+      {
+        path: '/user_setting',
+        name: 'user_setting',
+        meta: {
+          hideInMenu: true,
+          title: '用户设置'
+        },
+        component: () => import('@/view/index/user-setting.vue')
       }
     ]
   },
@@ -188,7 +205,7 @@ export default [
           icon: 'md-notifications',
           title: '消息中心'
         },
-        component: () => import('@/view/single-page/message/index.vue')
+        component: () => import('@/view/index/message/index.vue')
       }
     ]
   },

@@ -1,0 +1,117 @@
+<template>
+	<div class="user-setting">
+		<div class="flex-start-top info-frame">
+			<div class="user-info">
+				<p class="title"><b>用户基本信息</b></p>
+				<div class="flex-between-center info-item">
+					<div class="label">用户名：</div>
+					<div class="text">{{user.userName}}</div>
+				</div>
+				<div class="flex-between-center info-item">
+					<div class="label">账户余额：</div>
+					<div class="text">{{user.money}}</div>
+				</div>
+				<div class="flex-between-center info-item">
+					<div class="label">vip用户：</div>
+					<div class="text">{{user.vip?'是':'否'}}</div>
+				</div>
+				<div class="flex-between-center info-item" v-if="user.vip">
+					<div class="label">vip到期时间：</div>
+					<div class="text">{{user.vipExpire|getDate}}</div>
+				</div>
+			</div>
+			<div class="reset">
+				<p class="title"><b>用户密码重置</b></p>
+				<div class="flex-between-center info-item">
+					<div class="label">原密码：</div>
+					<div class="text"><Input type='password' v-model="reset.old_password" placeholder='请输入原密码'/></div>
+				</div>
+				<div class="flex-between-center info-item">
+					<div class="label">新密码：</div>
+					<div class="text"><Input type='password' v-model="reset.new_password" placeholder='请输入新密码'/></div>
+				</div>
+				<div class="flex-between-center info-item">
+					<div class="label">密码确认：</div>
+					<div class="text"><Input type='password' v-model="reset.cfm_password" placeholder='请确认新密码'/></div>
+				</div>
+				<div class="flex-between-center info-item">
+					<div class="label"></div>
+					<div class="text"><Button type="primary" @click="resetPassword">确认修改</Button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import {getTime} from '@/libs/tools'
+import {resetPassword} from '@/api/user'
+export default{
+	filters:{
+		getDate(e){
+			return getTime(e,'year')
+		}
+	},
+	data(){
+		return {
+			reset:{
+				old_password:'',
+				new_password:'',
+				cfm_password:''
+			}
+		}
+	},
+	computed:{
+		user(){
+			return this.$store.state.user
+		}
+	},
+	methods:{
+		resetPassword(){
+			if (!this.reset.old_password.trim()||!this.reset.new_password.trim()||!this.reset.cfm_password.trim()) {
+				return this.$Notice.error({title:"重置信息不完善"})
+			}
+			if (this.reset.new_password!==this.reset.cfm_password) {
+				return this.$Notice.error({title:"新密码与确认密码不正确"})
+			}
+			resetPassword(this.reset).then((r)=>{
+				this.$Notice.success({title:r.data.msg})
+			}).catch((e)=>{
+				this.$Notice.error({title:e.response.data.msg})
+			})
+		}
+	}
+}	
+</script>
+<style lang="scss" scoped>
+.user-setting{
+	.info-frame{
+		width: 100%;
+		min-height: 500px;
+		background-color: #ffffff;
+		.user-info,.reset{
+			height: 100%;
+			width: 50%;
+			padding: 20px;
+			.title{
+				font-size: 16px;
+			}
+			.info-item{
+				font-size: 14px;
+				margin-top: 20px;
+				.label{
+					width: 20%;
+					text-align: right;
+				}
+				.text{
+					width: 75%;
+				}
+			}
+		}
+		.user-info{
+		}
+		.reset{
+			border-left: 1px solid #f7f7f7;
+		}
+	}
+}
+</style>

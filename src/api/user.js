@@ -22,6 +22,14 @@ export const getUserInfo = (token) => {
   })
 }
 
+export const resetPassword = (data) => {
+  return axios.request({
+    url: 'account/reset_password',
+    method: 'post',
+    data
+  })
+}
+
 export const logout = (token) => {
   return axios.request({
     url: 'account/logout',
