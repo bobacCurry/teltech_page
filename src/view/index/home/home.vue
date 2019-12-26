@@ -1,6 +1,6 @@
 <template>
   <div class="user-info">
-    <div class="user-info-item"><b>{{user.userName}}</b> 欢迎登陆多元推广系统！</div>
+    <div class="user-info-item"><b>{{user.userName}}</b> 欢迎登陆通达推广系统！</div>
 <!--     <Row :gutter="20">
       <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
         <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">

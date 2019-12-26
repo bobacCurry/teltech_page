@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: '多元推广系统',
+  title: '通达推广系统',
   /**
    * @description token在Cookie中存储的天数，默认1天
    */

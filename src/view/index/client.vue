@@ -17,7 +17,7 @@
             <div class="bind-item">
               <Input v-model="newClient.phone" placeholder="TG账号（带国家区号）">
                 <Button slot="append" style="width: 100px" v-if="newClient.timer" :disabled="newClient.timer>0">已发送 {{newClient.timer}}s</Button>
-                <Button slot="append" style="width: 100px" @click="sendCode" v-else>发送验证码</Button>
+                <Button slot="append" style="width: 100px" @click="sendCode" :disabled="laoding" v-else>发送验证码</Button>
               </Input>
             </div>
             <div class="bind-item">
@@ -49,7 +49,8 @@ export default {
         type:null,
         timer:0
       },
-      countdown:null
+      countdown:null,
+      laoding:false
     }
   },
   mounted () {
@@ -119,16 +120,22 @@ export default {
         return this.$Notice.error({title:"请输入验证码"})
       }
 
+      this.laoding = true
+
       confirmCode(this.newClient.phone,this.newClient.code).then((r)=>{
+
         console.log(r.data)
+
+      }).finally(()=>{
+      
+        this.laoding = false
+        
       })
     },
     cancelConfirm(){
-      
-
 
       if (this.newClient.phone.trim()&&this.newClient.timer) {
-      
+
         confirmCode(this.newClient.phone,'1111').then((r)=>{
       
           console.log(r.data)

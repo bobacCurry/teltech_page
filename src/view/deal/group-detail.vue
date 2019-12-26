@@ -2,7 +2,7 @@
 	<div class="service-group-detail">
 		<div class="flex-between-center title">
 			<h2>创建服务订单</h2>
-			<div><Button type="primary" @click="updatePush">保存服务</Button></div>
+			<div><Button type="primary" @click="updatePush" :disabled="loading">保存服务</Button></div>
 		</div>
 		<div class="content">
 			<div class="content-title">业务配置</div>
@@ -77,6 +77,7 @@ export default{
 			clientList:[],
 			chatList:[],
 			phone:'',
+			loading:false,
 			order:{
 				chat_type:0,
 				text_type:'',
@@ -149,6 +150,9 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
+
+			this.loading = true
+
 			updatePush(this.$route.params._id,this.order).then((r)=>{
 
 				if (r.data.success) {
@@ -164,7 +168,12 @@ export default{
 			}).catch((e)=>{
 			
 				this.$Notice.error({title:e.response.data.msg})
-			})
+			
+			}).finally(()=>{
+      
+		    	this.loading = false
+		        
+		    })
 		}
 	}
 }	
