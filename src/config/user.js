@@ -1,0 +1,1 @@
+export const jobList = ['招聘','推广','美食']

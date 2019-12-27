@@ -38,6 +38,14 @@ export default [
     component: Main,
     children: [
       {
+        path: 'add-user',
+        name: 'admin_add_user',
+        meta: {
+          title: '新增用户'
+        },
+        component: () => import('@/view/admin/add-user')
+      },
+      {
         path: 'chat',
         name: 'admin_chat',
         meta: {

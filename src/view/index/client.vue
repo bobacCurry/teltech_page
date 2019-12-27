@@ -12,7 +12,7 @@
 			</li>
       <li class="client-item-frame">
         <Card class="client-item">
-          <Button v-if="!newClient.binding" @click="newClient.binding=true">点击绑定客户端</Button>
+          <Button type="primary" v-if="!newClient.binding" @click="newClient.binding=true">绑定已注册的TG账号</Button>
           <div v-else>
             <div class="bind-item">
               <Input v-model="newClient.phone" placeholder="TG账号（带国家区号）">
