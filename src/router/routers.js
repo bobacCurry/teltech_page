@@ -87,7 +87,7 @@ export default [
         path: 'client',
         name: 'client',
         meta: {
-          title: '绑定实例'
+          title: '绑定TG账号'
         },
         component: () => import('@/view/index/client.vue')
       },
@@ -95,7 +95,7 @@ export default [
         path: '/add_chat',
         name: 'add_chat',
         meta: {
-          title: '自动加群'
+          title: '自动加群 (vip专属)'
         },
         component: () => import('@/view/index/add-chat.vue')
       },

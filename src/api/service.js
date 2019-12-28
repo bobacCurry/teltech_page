@@ -36,3 +36,18 @@ export const changeStatus = (_id) => {
     	method: 'post'
   	})
 }
+
+export const addChat = (data) => {
+    return axios.request({
+      url: `/service/vip/add_chat`,
+      method: 'post',
+      data
+    })
+}
+
+export const getAddChat = (page) => {
+    return axios.request({
+      url: `/service/vip/get_add_chat/${page}`,
+      method: 'get'
+    })
+}
