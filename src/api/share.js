@@ -35,3 +35,10 @@ export const getUserChat = (page,limit) => {
     	method: 'get'
   	})
 }
+
+export const getChat = (type) => {
+    return axios.request({
+      url: `/service/chat/get_chat/${type}`,
+      method: 'get'
+    })
+}

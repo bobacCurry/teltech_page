@@ -60,7 +60,7 @@
 </template>
 <script>
 import {chatType,textType,minuteList} from '@/config/client'
-import {getChat} from '@/api/admin'
+import {getChat} from '@/api/share'
 import {getNotUsed} from '@/api/client'
 import {addPush} from '@/api/service'
 export default{
@@ -97,7 +97,7 @@ export default{
 			})
 		},
 		getChat(){
-			getChat(this.order.chat_type,1,1,200).then((r)=>{
+			getChat(this.order.chat_type).then((r)=>{
 				if (r.data.success) {
 					this.chatList = r.data.msg
 				}

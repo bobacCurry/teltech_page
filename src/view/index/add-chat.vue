@@ -72,7 +72,7 @@
 <script>
 import {chatType} from '@/config/client'
 import {getUserClient} from '@/api/share'
-import {getChat} from '@/api/admin'
+import {getChat} from '@/api/share'
 import {addChat,getAddChat} from '@/api/service'
 export default{
 	mounted(){
@@ -104,7 +104,7 @@ export default{
 	      })
 	    },
 		getChat(){
-			getChat(this.type,1,1,200).then((r)=>{
+			getChat(this.type).then((r)=>{
 				if (r.data.success) {
 					this.chatList = r.data.msg
 				}
