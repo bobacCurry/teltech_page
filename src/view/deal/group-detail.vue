@@ -66,7 +66,7 @@ import {updatePush,getOnePush} from '@/api/service'
 export default{
 	mounted(){
 		this.getDetail(this.$route.params._id)
-		this.getChat()
+		// this.getChat()
 		this.getClient()
 	},
 	data(){
@@ -105,6 +105,7 @@ export default{
 					this.order = r.data.msg
 					this.phone = r.data.msg.phone
 					this.order.minute = r.data.msg.minute[0]
+					this.getChat()
 				}
 			})
 		},
@@ -121,12 +122,6 @@ export default{
 					this.chatList = r.data.msg
 				}
 			})
-		},
-		changeChatType(e){
-				
-			this.order.chat_type = e
-			
-			this.getChat()
 		},
 		updatePush(){
 			if (!String(this.order.chat_type)) {
