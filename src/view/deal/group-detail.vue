@@ -44,12 +44,15 @@
 		<div class="content">
 			<div class="content-title">广告内容配置</div>
 			<div class="flex-start-center" v-if="order.text_type==1">
-				<div class="image-frame" v-if="!order.media">
+				<div class="image-frame" v-if="!order.media" @click="selectImg">
 					<Icon type="ios-add-circle" size="100"/>
 				</div>
 				<div class="image-frame back-image" v-else :style="{'background-image': 'url('+order.media+')'}">
 					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media=''"/>
 				</div>
+				<form id="img-form" style="display: none">
+			    	<input id="img-input" type='file' accept="image/*" @change="getImg($event)" />
+			  	</form>
 				<Input v-model="order.caption" type="textarea" class="text-frame" placeholder="请输入文字文案" :autosize="{minRows:10}"/>
 			</div>
 			<div v-else>
@@ -63,6 +66,7 @@ import {chatType,textType,minuteList} from '@/config/client'
 import {getChat} from '@/api/share'
 import {getNotUsed} from '@/api/client'
 import {updatePush,getOnePush} from '@/api/service'
+import {uploadImg} from '@/api/data'
 export default{
 	mounted(){
 		this.getDetail(this.$route.params._id)
@@ -169,7 +173,46 @@ export default{
 		    	this.loading = false
 		        
 		    })
-		}
+		},
+    	selectImg(){
+	        document.getElementById('img-input').click()
+    	},
+    	getImg(e){
+
+    		let file = e.target.files[0]
+
+    		e.target.value = ''
+
+    		if (!file) {
+
+    			return false
+    		}
+
+	        if (file.size>300000) {
+
+	          return this.$Notice.error({title:'图片大小不得超过300kb'})
+	        }
+
+    		let vue = this
+
+    		let reader = new FileReader()
+            
+            reader.readAsDataURL(file)
+            
+            reader.onload=function(){
+
+            	vue.upload(this.result)
+            }
+    	},
+    	upload(image){
+    		uploadImg({image}).then(({data})=>{
+    			if (data.success) {
+    				this.order.media = data.path
+    			}else{
+    				this.$Notice.error({title:data.msg})
+    			}
+    		})
+    	}
 	}
 }	
 </script>

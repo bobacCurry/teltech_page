@@ -1,5 +1,13 @@
 import axios from '@/libs/api.request'
 
+export const uploadImg = data => {
+  return axios.request({
+    url: 'data/upload_image',
+    method: 'post',
+    data: data
+  })
+}
+
 export const getTableData = () => {
   return axios.request({
     url: 'get_table_data',
@@ -29,12 +37,12 @@ export const saveErrorLogger = info => {
   })
 }
 
-export const uploadImg = formData => {
-  return axios.request({
-    url: 'image/upload',
-    data: formData
-  })
-}
+// export const uploadImg = formData => {
+//   return axios.request({
+//     url: 'image/upload',
+//     data: formData
+//   })
+// }
 
 export const getOrgData = () => {
   return axios.request({

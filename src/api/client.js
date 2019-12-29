@@ -6,3 +6,10 @@ export const getNotUsed = (_id,auth) => {
     	method: 'get'
   	})
 }
+
+export const restore = (phone) => {
+  	return axios.request({
+    	url: `/service/client/restore/${phone}`,
+    	method: 'post'
+  	})
+}

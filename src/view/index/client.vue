@@ -6,7 +6,10 @@
           <div class="item-info">实例信息</div>
           <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
           <div class="item-info">TG用户名：<a v-if="!item.name">获取</a><span v-else>{{item.name}}</span></div>
-          <div class="item-info">实例状态：{{clientStatus[item.status]}}</div>
+          <div class="item-info">实例状态：
+            <span :style="{color: item.status==2||item.status==3?'red':''}">{{clientStatus[item.status]}}</span>
+            <a v-if="item.status==2" @click="restore(item.phone)">已恢复</a>
+          </div>
           <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
         </Card>
 			</li>
@@ -34,7 +37,8 @@
 		</ul>
 	</div>
 </template>
-<script>
+<script>  
+import {restore} from '@/api/client'
 import {getUserClient,sendCode,confirmCode} from '@/api/share'
 import {serviceType,clientStatus} from '@/config/client'
 export default {
@@ -174,6 +178,17 @@ export default {
       this.newClient.timer = 0
       
       clearInterval(this.countdown)
+    },
+    restore(phone){
+      if (this.laoding) {
+        return false
+      }
+      this.laoding = true
+      restore(phone).then(({data})=>{
+        this.getClient()
+      }).finally(()=>{
+        this.laoding = false
+      })
     }
   }
 }

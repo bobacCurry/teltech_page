@@ -30,7 +30,8 @@ export default {
             name: this.$config.homeName
           })
         }).catch(({response})=>{
-          this.$Notice.error({title:response.data.msg})
+          location.reload()
+          // this.$Notice.error({title:response.data.msg})
         })
       }).catch((e)=>{
         this.$Notice.error({title:e.response.data.msg})
