@@ -4,8 +4,10 @@
 			<li class="service-item-frame" v-for="(item,key) in serviceList" :key="key">
 				<Card class="service-item">
 		          	<div class="item-info">TG实例： {{item.phone}} </div>
+		          	<div class="item-info">服务备注： {{item.title}} </div>
 		          	<div class="item-info">服务类型： {{chatType[item.chat_type]}}</div>
 		          	<div class="item-info">文本类型： {{textType[item.text_type]}}</div>
+		          	<div class="item-info">发送时间： {{item.minute.join('、')}} 分</div>
 		          	<div class="item-info">开启状态： 
 		          		<span v-if="item.status==1" style="color: green">已开启</span><span v-else style="color: red">未开启</span>（<a @click="changeStatus(item._id,key)">{{item.status==1?'点击关闭':'点击开启'}}</a>）
 		          	</div>
@@ -127,7 +129,7 @@ export default{
 	.service-item-frame{
 		width: 25%;
 		.service-item{
-			height: 230px;
+			height: 280px;
 			.item-info{
 				margin-top: 10px;
 			}

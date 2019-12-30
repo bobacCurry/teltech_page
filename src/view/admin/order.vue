@@ -1,5 +1,10 @@
 <template>
 <div class="admin-order">
+	<div class="flex-start-center option-frame">
+		<Select v-model="params.status" style="width:200px" placeholder="审核状态" @on-change="getOrder">
+	        <Option v-for="(item,key) in status" :value="key" :key="key">{{ item }}</Option>
+	    </Select>
+	</div>
 	<ul class="flex-start-center">
 		<li class="order-item-frame" v-for="(item,key) in orderList" :key="key">
 			<Card class="order-item">
@@ -16,6 +21,9 @@
 	        </Card>
 		</li>
 	</ul>	
+	<div class="option-frame">
+		<Page :total="10000" simple @on-change="changePage"/>
+	</div>
 </div>	
 </template>
 <script>
@@ -27,11 +35,12 @@ export default{
 	},
 	data(){
 		return {
+			status:['待审核','审核通过'],
 			orderList:[],
 			serviceType,
 			params:{
 				page:1,
-				status:''
+				status:0
 			}
 		}
 	},
@@ -52,6 +61,10 @@ export default{
 					this.$Notice.error({title:r.data.msg})
 				}
 			})
+		},
+		changePage(e){
+			this.params.page=e
+			this.getOrder()
 		}
 	}
 }
@@ -66,6 +79,9 @@ export default{
 				margin-top: 10px;
 			}
 		}
+	}
+	.option-frame{
+		padding: 20px 0;
 	}
 }	
 </style>

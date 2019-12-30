@@ -29,10 +29,13 @@
 				        </Option>
 				    </Select>
 				</div>
+				<div class="option-item">
+					<Input v-model="order.title" placeholder="服务备注"/>
+				</div>
 			</div>
 		</div>
 		<div class="content">
-			<div class="content-title">广告群配置</div>
+			<div class="content-title">广告群配置（已选择 {{this.order.chat.length}}个）</div>
 			<div class="flex-start-center">
 				<CheckboxGroup v-model="order.chat">
 			        <Checkbox :label="item.chatid" v-for="(item,key) in chatList" :key="key">
@@ -81,6 +84,7 @@ export default{
 			chatList:[],
 			loading:false,
 			order:{
+				title:'',
 				chat_type:0,
 				text_type:'',
 				phone:'',
@@ -134,6 +138,9 @@ export default{
 			}
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
+			}
+			if (this.order.chat.length>80) {
+				return this.$Notice.error({title:'最多选择80个群'})			
 			}
 
 			this.loading = true

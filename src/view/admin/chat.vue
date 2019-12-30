@@ -2,11 +2,9 @@
 	<div class="service-chat">
 		<div class="title">
 			<Select v-model="type" style="width:200px" placeholder="群类型" @on-change="changeType">
-				<Option :value="''" :key="-1">不限</Option>
 		        <Option v-for="(item,key) in this.chatType" :value="key" :key="key">{{ item }}</Option>
 		    </Select>
 			<Select v-model="status" style="width:200px" placeholder="审核状态" @on-change="changeStatus">
-				<Option :value="''" :key="-1">不限</Option>
 		        <Option v-for="(item,key) in this.chatStatus" :value="key" :key="key">{{ item }}</Option>
 		    </Select>
 			<Table :columns="columns" :data="chatids"></Table>
@@ -100,8 +98,8 @@ export default {
 			columns,
 			chatids:[],
 			auth:['不需要','需要'],
-			status:'',
-			type:'',
+			status:0,
+			type:0,
 			new_chat:{
 				chatid:'',
 				type:'',

@@ -2,7 +2,7 @@ export const serviceType = ['群发服务','私信服务','拉群服务']
 	
 export const clientStatus = ['未开启','正常','被禁言（spam）','被封禁（banned）']
 
-export const chatType = ['招聘','推广','美食','闲聊交流']
+export const chatType = ['招聘','BC推广','美食外卖','其他推广']
 
 export const textType = ['文字','图片']
 
