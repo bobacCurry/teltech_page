@@ -25,7 +25,7 @@
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
 				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
-				        	{{ item }} 分 - {{item + 20}} 分 -  {{item + 40}} 分
+				        	{{ item }} 分 - {{item + 30}} 分
 				        </Option>
 				    </Select>
 				</div>
@@ -139,8 +139,8 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.order.chat.length>90) {
-				return this.$Notice.error({title:'最多选择90个群'})			
+			if (this.order.chat.length>60) {
+				return this.$Notice.error({title:'最多选择60个群'})			
 			}
 
 			this.loading = true
