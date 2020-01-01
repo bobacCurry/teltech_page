@@ -60,6 +60,14 @@ export default [
           title: '订单审核'
         },
         component: () => import('@/view/admin/order')
+      },
+      {
+        path: 'proxy',
+        name: 'admin_proxy',
+        meta: {
+          title: '代理管理'
+        },
+        component: () => import('@/view/admin/proxy')
       }
     ]
   },
