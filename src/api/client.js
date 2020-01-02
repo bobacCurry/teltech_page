@@ -7,6 +7,13 @@ export const getNotUsed = (_id,auth) => {
   	})
 }
 
+export const delUserClient = (phone) => {
+  	return axios.request({
+    	url: `/service/client/del_user_client/${phone}`,
+    	method: 'post'
+  	})
+}
+
 export const restore = (phone) => {
   	return axios.request({
     	url: `/service/client/restore/${phone}`,

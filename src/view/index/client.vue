@@ -11,6 +11,7 @@
             <a v-if="item.status==2" @click="restore(item.phone)">已恢复</a>
           </div>
           <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
+          <div class="item-info">删除账号：<a @click="delClient(item.phone)">确认删除</a></div>
         </Card>
 			</li>
       <li class="client-item-frame">
@@ -38,7 +39,7 @@
 	</div>
 </template>
 <script>  
-import {restore} from '@/api/client'
+import {restore,delUserClient} from '@/api/client'
 import {getUserClient,sendCode,confirmCode} from '@/api/share'
 import {serviceType,clientStatus} from '@/config/client'
 export default {
@@ -189,6 +190,22 @@ export default {
       }).finally(()=>{
         this.laoding = false
       })
+    },
+    delClient(phone){
+      this.$Modal.confirm({
+        title: '是否删除该账号？',
+        content: '是否删除该账号？',
+        onOk: () => {
+          delUserClient(phone).then(({data})=>{
+            if (data.success) {
+              this.getClient()
+              return this.$Notice.success({title:data.msg})
+            }else{
+              return this.$Notice.error({title:'解除错误',desc:data.msg})
+            }
+          })
+        }
+      })
     }
   }
 }
@@ -197,7 +214,7 @@ export default {
 .client-item-frame{
 	width: 25%;
 	.client-item{
-    height: 200px;
+    height: 230px;
     .item-info{
       margin-top: 10px;
     }

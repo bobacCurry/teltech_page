@@ -25,7 +25,7 @@
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
 				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
-				        	{{ item }} 分 - {{item + 30}} 分
+				        	{{ item }} 分 - {{item + 20}} 分 - {{item + 40}} 分
 				        </Option>
 				    </Select>
 				</div>
