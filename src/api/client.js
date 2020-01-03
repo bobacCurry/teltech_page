@@ -20,3 +20,10 @@ export const restore = (phone) => {
     	method: 'post'
   	})
 }
+
+export const getAddChat = (page) => {
+  	return axios.request({
+    	url: `/service/client/get_add_chat/${page}`,
+    	method: 'get'
+  	})
+}

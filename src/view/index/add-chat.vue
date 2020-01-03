@@ -73,7 +73,8 @@
 import {chatType} from '@/config/client'
 import {getUserClient} from '@/api/share'
 import {getChat} from '@/api/share'
-import {addChat,getAddChat} from '@/api/service'
+import {addChat} from '@/api/service'
+import {getAddChat} from '@/api/client'
 export default{
 	mounted(){
 		this.getClient()
