@@ -142,6 +142,14 @@ export default [
           title: '广告批量私发'
         },
         component: () => import('@/view/service/person.vue')
+      },
+      {
+        path: 'chat',
+        name: 'service_chat',
+        meta: {
+          title: '群组创建管理'
+        },
+        component: () => import('@/view/service/chat.vue')
       }
     ]
   },
