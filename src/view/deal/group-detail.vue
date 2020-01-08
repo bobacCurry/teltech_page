@@ -135,8 +135,18 @@ export default{
 		},
 		getChat(){
 			getChat(this.order.chat_type).then((r)=>{
+				
 				if (r.data.success) {
+					
 					this.chatList = r.data.msg
+					
+					const chatList = r.data.msg.map(item => item.chatid)
+
+					this.order.chat = this.order.chat.filter((e)=>{
+						
+						return chatList.indexOf(e) !== -1
+					
+					})
 				}
 			})
 		},
