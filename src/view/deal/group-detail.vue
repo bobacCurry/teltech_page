@@ -1,19 +1,19 @@
 <template>
 	<div class="service-group-detail">
 		<div class="flex-between-center title">
-			<h2>创建服务订单</h2>
+			<h2>更新服务配置</h2>
 			<div><Button type="primary" @click="updatePush" :disabled="loading">保存服务</Button></div>
 		</div>
 		<div class="content">
 			<div class="content-title">业务配置</div>
 			<div class="flex-start-center">
 				<div class="option-item">
-					<Select v-model="order.chat_type" :disabled="true" style="width:200px" placeholder="广告业务类型" >
+					<Select v-model="order.chat_type" :disabled="true" style="width:100px" placeholder="广告业务类型" >
 				        <Option v-for="(item,key) in chatType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
-					<Select v-model="order.text_type" style="width:200px" placeholder="广告文本类型">
+					<Select v-model="order.text_type" style="width:100px" placeholder="广告文本类型">
 				        <Option v-for="(item,key) in textType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
@@ -25,8 +25,15 @@
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
 				        <Option v-for="(item,key) in minuteList" :value="item" :key="key">
-				        	{{ item }} 分 - {{item + 20}} 分 - {{item + 40}} 分
+				        	{{ item }} 分 - {{order.count>1?item + 20:''}} 分 - {{order.count>2?item + 40:''}} 分
 				        </Option>
+				    </Select>
+				</div>
+				<div class="option-item">
+					<Select v-model="order.count" style="width:150px">
+				        <Option :value="1">每小时发送1次</Option>
+				        <Option :value="2">每小时发送2次</Option>
+				        <Option :value="3">每小时发送3次</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
@@ -94,7 +101,8 @@ export default{
 				text:'',
 				media:'',
 				caption:'',
-				minute:''
+				minute:'',
+				count:3
 			}
 		}
 	},
@@ -113,6 +121,7 @@ export default{
 					this.order = r.data.msg
 					this.phone = r.data.msg.phone
 					this.order.minute = r.data.msg.minute[0]
+					this.order.count = 3
 					this.getChat()
 				}
 			})
@@ -126,8 +135,18 @@ export default{
 		},
 		getChat(){
 			getChat(this.order.chat_type).then((r)=>{
+				
 				if (r.data.success) {
+					
 					this.chatList = r.data.msg
+					
+					const chatList = r.data.msg.map(item => item.chatid)
+
+					this.order.chat = this.order.chat.filter((e)=>{
+						
+						return chatList.indexOf(e) !== -1
+					
+					})
 				}
 			})
 		},
@@ -153,8 +172,8 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.order.chat.length>60) {
-				return this.$Notice.error({title:'最多选择60个群'})			
+			if (this.order.chat.length>80) {
+				return this.$Notice.error({title:'最多选择80个群'})			
 			}
 
 			this.loading = true

@@ -16,7 +16,10 @@
 		          		<span v-if="item.expire">{{item.expire|expire}}<a @click="order.sid=item._id;show=true">（续时）</a></span>
 		          		<span v-else>未购买<a @click="order.sid=item._id;show=true">（点击下单）</a></span>
 		          	</div>
-		          	<div class="item-info"><a @click="$router.push('/deal/service-detail/'+item._id)">查看服务详情</a></div>
+		          	<div class="item-info flex-between-center">
+		          		<a @click="$router.push('/deal/service-detail/'+item._id)">查看服务详情</a>
+		          		<a @click="delPush(item._id)">删除服务</a>
+		          	</div>
 		        </Card>
 			</li>
 		</ul>
@@ -31,7 +34,7 @@
 	</div>
 </template>
 <script>
-import {getPush,changeStatus} from '@/api/service'
+import {getPush,changeStatus,delPush} from '@/api/service'
 import {addGroupOrder} from '@/api/order'
 import {chatType,textType} from '@/config/client'
 import {groupFee} from '@/config/order'
@@ -120,6 +123,22 @@ export default{
 					return this.$Notice.success({title:r.data.msg})
 				}
 			})
+		},
+		delPush(_id){
+			this.$Modal.confirm({
+		        title: '是否删除该服务？',
+		        content: '是否删除该服务？',
+		        onOk: () => {
+		          	delPush(_id).then(({data})=>{
+			            if (data.success) {
+			              this.getService()
+			              return this.$Notice.success({title:data.msg})
+			            }else{
+			              return this.$Notice.error({title:'解除错误',desc:data.msg})
+			            }
+		          	})
+		        }
+		    })
 		}
 	}
 }	
