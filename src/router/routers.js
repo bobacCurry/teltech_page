@@ -136,13 +136,29 @@ export default [
         component: () => import('@/view/service/group.vue')
       },
       {
-        path: 'personal',
-        name: 'service_person',
+        path: 'group_create',
+        name: 'service_group_create',
         meta: {
-          title: '广告批量私发'
+          title: '群组建设'
         },
-        component: () => import('@/view/service/person.vue')
+        component: () => import('@/view/service/group_create.vue')
+      },
+      {
+        path: 'channel_create',
+        name: 'service_channel_create',
+        meta: {
+          title: '频道建设'
+        },
+        component: () => import('@/view/service/channel_create.vue')
       }
+      // {
+      //   path: 'personal',
+      //   name: 'service_person',
+      //   meta: {
+      //     title: '广告批量私发'
+      //   },
+      //   component: () => import('@/view/service/person.vue')
+      // }
     ]
   },
   {
