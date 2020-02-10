@@ -23,11 +23,11 @@
 		<div class="add-user flex-start-center">
 			<Card class="add-item" v-for="(item,key) in addList" :key="key">
 		        <Collapse v-model="panel">
-			        <Panel name="1">
+			        <Panel :name="`${key}-1`">
 			        	拉人的目标群
 			           	<p slot="content">{{item.target}}</p>
 			        </Panel>
-			        <Panel name="2">
+			        <Panel  :name="`${key}-2`">
 			            拉人的telegram号
 			            <div slot="content">
 			            	<div class="flex-start-center">
@@ -42,7 +42,7 @@
 				            </div>
 			            </div>
 			        </Panel>
-			        <Panel name="3">
+			        <Panel :name="`${key}-3`">
 			            从下列群拉人
 			            <div slot="content">
 			            	<div class="flex-start-center">
@@ -55,17 +55,21 @@
 				            </div>
 			            </div>
 			        </Panel>
-			        <Panel name="4">
+			        <Panel :name="`${key}-4`">
 			            需要拉的用户数量
 			            <p slot="content">{{item.uids.length}} 个</p>
 			        </Panel>
-			        <Panel name="5">
+			        <Panel :name="`${key}-5`">
 			            拉入成功的数量
 			            <p slot="content">{{item.success.length}} 个</p>
 			        </Panel>
-			        <Panel name="6">
+			        <Panel :name="`${key}-6`">
 			            拉入失败的数量
 			            <p slot="content">{{item.fail.length}} 个</p>
+			        </Panel>
+			        <Panel :name="`${key}-7`">
+			            拉人状态
+			            <p slot="content">{{item.status?'已拉完！':'正在拉。。。'}}</p>
 			        </Panel>
 			    </Collapse>
 		    </Card>
@@ -82,7 +86,7 @@ export default{
 			clientList: [],
 			phone:'',
 			target:'',
-			panel:'1',
+			panel:'',
 			addList:[],
 			addPhone:'',
 			addChat:'',
