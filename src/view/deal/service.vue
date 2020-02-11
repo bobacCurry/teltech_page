@@ -92,6 +92,11 @@ export default{
 			
 			}
 
+			if (!this.order.memo.trim()) {
+
+				return this.$Notice.error({title:'请填写备注（你的名字）'})
+			}
+
 			addGroupOrder(this.order).then((r)=>{
 
 				if (r.data.success) {
