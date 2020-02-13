@@ -8,12 +8,12 @@
 			<div class="content-title">业务配置</div>
 			<div class="flex-start-center">
 				<div class="option-item">
-					<Select v-model="order.chat_type" style="width:200px" placeholder="广告业务类型" @on-change="changeChatType">
+					<Select v-model="order.chat_type" style="width:100px" placeholder="广告业务类型" @on-change="changeChatType">
 				        <Option v-for="(item,key) in this.chatType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
-					<Select v-model="order.text_type" style="width:200px" placeholder="广告文本类型">
+					<Select v-model="order.text_type" style="width:100px" placeholder="广告文本类型">
 				        <Option v-for="(item,key) in this.textType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
@@ -25,8 +25,15 @@
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
 				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
-				        	{{ item }} 分 - {{item + 20}} 分 - {{item + 40}} 分
+				        	{{ item }} 分 - {{order.count>1?item + 20:''}} 分 - {{order.count>2?item + 40:''}} 分
 				        </Option>
+				    </Select>
+				</div>
+				<div class="option-item">
+					<Select v-model="order.count" style="width:150px">
+				        <Option :value="1">每小时发送1次</Option>
+				        <Option :value="2">每小时发送2次</Option>
+				        <Option :value="3">每小时发送3次</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
@@ -92,7 +99,8 @@ export default{
 				text:'',
 				media:'',
 				caption:'',
-				minute:''
+				minute:'',
+				count:3
 			}
 		}
 	},
@@ -139,8 +147,8 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.order.chat.length>60) {
-				return this.$Notice.error({title:'最多选择60个群'})			
+			if (this.order.chat.length>80) {
+				return this.$Notice.error({title:'最多选择80个群'})			
 			}
 
 			this.loading = true
