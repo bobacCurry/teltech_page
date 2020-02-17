@@ -1,6 +1,6 @@
 export const serviceType = ['群发服务','私信服务','拉群服务']
 	
-export const clientStatus = ['未开启','正常','被禁言（spam）','被封禁（banned）']
+export const clientStatus = ['未开启','正常','被禁言（spam）','被封禁（banned）','验证失效']
 
 export const chatType = ['招聘','BC推广','美食外卖','其他推广']
 
