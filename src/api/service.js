@@ -37,6 +37,13 @@ export const changeStatus = (_id) => {
   	})
 }
 
+export const delPush = (_id) => {
+    return axios.request({
+      url: `/service/push/del_push/${_id}`,
+      method: 'post'
+    })
+}
+
 export const addChat = (data) => {
     return axios.request({
       url: `/service/vip/add_chat`,

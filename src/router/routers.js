@@ -136,10 +136,10 @@ export default [
         component: () => import('@/view/service/group.vue')
       },
       {
-        path: 'personal',
-        name: 'service_person',
+        path: 'group_create',
+        name: 'service_group_create',
         meta: {
-          title: '广告批量私发'
+          title: '群组建设'
         },
         component: () => import('@/view/service/person.vue')
       },
@@ -159,6 +159,14 @@ export default [
         },
         component: () => import('@/view/service/add.vue')
       }
+      // {
+      //   path: 'personal',
+      //   name: 'service_person',
+      //   meta: {
+      //     title: '广告批量私发'
+      //   },
+      //   component: () => import('@/view/service/person.vue')
+      // }
     ]
   },
   {
