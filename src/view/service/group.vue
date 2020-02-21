@@ -147,8 +147,8 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.order.chat.length>80) {
-				return this.$Notice.error({title:'最多选择80个群'})			
+			if (this.order.chat.length>100) {
+				return this.$Notice.error({title:'最多选择100个群'})			
 			}
 
 			this.loading = true
