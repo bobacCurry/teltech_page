@@ -1,3 +1,3 @@
 <template>
-<div>12312321321</div>	
+<div>服务暂未开通</div>
 </template>
