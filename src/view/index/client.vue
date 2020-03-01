@@ -5,10 +5,13 @@
 				<Card class="client-item">
           <div class="item-info">实例信息</div>
           <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
-          <div class="item-info">TG用户名：<a v-if="!item.name">获取</a><span v-else>{{item.name}}</span></div>
+          <div class="item-info">TG用户名：
+            <span v-if="item.info">{{item.info.first_name}}&nbsp;&nbsp;</span>
+            <Button  @click="getlClient(item.phone)" :disabled="loading" type="primary" size="small" shape="circle">更新</Button>
+          </div>
           <div class="item-info">实例状态：
             <span :style="{color: item.status==2||item.status==3||item.status==4?'red':''}">{{clientStatus[item.status]}}</span>
-            <a v-if="item.status==2" @click="restore(item.phone)">已恢复</a>
+            <a v-if="item.status==2||item.status==4" @click="restore(item.phone)">已恢复</a>
           </div>
           <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
           <div class="item-info">删除账号：<a @click="delClient(item.phone)">确认删除</a></div>
@@ -21,7 +24,7 @@
             <div class="bind-item">
               <Input v-model="newClient.phone" placeholder="TG账号（带国家区号）">
                 <Button slot="append" style="width: 100px" v-if="newClient.timer" :disabled="newClient.timer>0">已发送 {{newClient.timer}}s</Button>
-                <Button slot="append" style="width: 100px" @click="sendCode" :disabled="laoding" v-else>发送验证码</Button>
+                <Button slot="append" style="width: 100px" @click="sendCode" :disabled="loading" v-else>发送验证码</Button>
               </Input>
             </div>
             <div class="bind-item">
@@ -39,7 +42,7 @@
 	</div>
 </template>
 <script>  
-import {restore,delUserClient} from '@/api/client'
+import {restore,delUserClient,getlClient} from '@/api/client'
 import {getUserClient,sendCode,confirmCode} from '@/api/share'
 import {serviceType,clientStatus} from '@/config/client'
 export default {
@@ -55,7 +58,7 @@ export default {
         timer:0
       },
       countdown:null,
-      laoding:false
+      loading:false
     }
   },
   mounted () {
@@ -125,7 +128,7 @@ export default {
         return this.$Notice.error({title:"请输入验证码"})
       }
 
-      this.laoding = true
+      this.loading = true
 
       confirmCode(this.newClient.phone,this.newClient.code).then((r)=>{
 
@@ -133,7 +136,7 @@ export default {
 
       }).finally(()=>{
       
-        this.laoding = false
+        this.loading = false
         
       })
     },
@@ -181,14 +184,14 @@ export default {
       clearInterval(this.countdown)
     },
     restore(phone){
-      if (this.laoding) {
+      if (this.loading) {
         return false
       }
-      this.laoding = true
+      this.loading = true
       restore(phone).then(({data})=>{
         this.getClient()
       }).finally(()=>{
-        this.laoding = false
+        this.loading = false
       })
     },
     delClient(phone){
@@ -205,6 +208,18 @@ export default {
             }
           })
         }
+      })
+    },
+    getlClient(phone){
+      if (this.loading) {
+        return false
+      }
+      this.loading = true
+      getlClient(phone).then(({data})=>{
+        this.getClient()
+      }).finally(()=>{
+        this.$Notice.info({title:'更新完毕'})
+        this.loading = false
       })
     }
   }
