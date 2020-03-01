@@ -61,14 +61,14 @@ export default [
         },
         component: () => import('@/view/admin/order')
       },
-      {
-        path: 'proxy',
-        name: 'admin_proxy',
-        meta: {
-          title: '代理管理'
-        },
-        component: () => import('@/view/admin/proxy')
-      }
+      // {
+      //   path: 'proxy',
+      //   name: 'admin_proxy',
+      //   meta: {
+      //     title: '代理管理'
+      //   },
+      //   component: () => import('@/view/admin/proxy')
+      // }
     ]
   },
   {
@@ -136,14 +136,6 @@ export default [
         component: () => import('@/view/service/group.vue')
       },
       {
-        path: 'group_create',
-        name: 'service_group_create',
-        meta: {
-          title: '群组建设'
-        },
-        component: () => import('@/view/service/person.vue')
-      },
-      {
         path: 'chat',
         name: 'service_chat',
         meta: {
@@ -151,21 +143,13 @@ export default [
         },
         component: () => import('@/view/service/chat.vue')
       },
-      {
-        path: 'add',
-        name: 'service_add',
-        meta: {
-          title: '群组拉人管理'
-        },
-        component: () => import('@/view/service/add.vue')
-      }
       // {
-      //   path: 'personal',
-      //   name: 'service_person',
+      //   path: 'add',
+      //   name: 'service_add',
       //   meta: {
-      //     title: '广告批量私发'
+      //     title: '群组拉人管理'
       //   },
-      //   component: () => import('@/view/service/person.vue')
+      //   component: () => import('@/view/service/add.vue')
       // }
     ]
   },

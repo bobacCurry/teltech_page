@@ -27,3 +27,11 @@ export const getAddChat = (page) => {
     	method: 'get'
   	})
 }
+
+
+export const getlClient = (phone) => {
+    return axios.request({
+      url: `/service/client/get_client/${phone}`,
+      method: 'get'
+    })
+}
