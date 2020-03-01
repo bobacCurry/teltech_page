@@ -24,3 +24,24 @@ export const getChat = (type,status,page,limit) => {
     	method: 'get'
   	})
 }
+
+export const getUsers = (page) => {
+  return axios.request({
+    url: `/admin/user/get_users/${page}`,
+    method: 'get'
+  })
+}
+
+export const resetPwd = (_id) => {
+    return axios.request({
+      url: `/admin/user/reset_pwd/${_id}`,
+      method: 'post'
+    })
+}
+
+export const setVip = (_id) => {
+    return axios.request({
+      url: `/admin/user/set_vip/${_id}`,
+      method: 'post'
+    })
+}

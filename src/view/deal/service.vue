@@ -1,6 +1,6 @@
 <template>
 	<div class="deal-service">
-		<ul class="flex-start-center">
+		<ul class="flex-start-top service-frame">
 			<li class="service-item-frame" v-for="(item,key) in serviceList" :key="key">
 				<Card class="service-item">
 		          	<div class="item-info">TG实例： {{item.phone}} </div>
@@ -23,6 +23,7 @@
 		        </Card>
 			</li>
 		</ul>
+		<Page :page-size="50" :total="5000" simple @on-change="getService"/>
 		<Modal v-model="show" title="创建订单" @on-ok="addOrder" @on-cancel="cancel">
 	        <div class="order-info">
 	        	<Select v-model="order.days" style="width:200px" placeholder="购买的天数">
@@ -40,7 +41,7 @@ import {chatType,textType} from '@/config/client'
 import {groupFee} from '@/config/order'
 export default{
 	mounted(){
-		this.getService()
+		this.getService(1)
 	},
 	filters:{
 		expire(e){
@@ -71,8 +72,8 @@ export default{
 		}
 	},
 	methods:{
-		getService(){
-			getPush().then((r)=>{
+		getService(page){
+			getPush(page).then((r)=>{
 				if (r.data.success) {
 					this.serviceList = r.data.msg
 				}
@@ -150,6 +151,9 @@ export default{
 </script>
 <style lang="scss" scoped>
 .deal-service{
+	.service-frame{
+		min-height: 600px;
+	}
 	.service-item-frame{
 		width: 25%;
 		.service-item{

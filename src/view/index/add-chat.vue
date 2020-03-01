@@ -13,6 +13,9 @@
 				        <Option v-for="(item,key) in this.clientList" :value="item.phone" :key="key">{{ item.phone }}</Option>
 				    </Select>
 				</div>
+				<div class="info-item">
+					<Checkbox @on-change="checkAll">全选</Checkbox>
+				</div>
 				<div class="option-item">
 					<Button type='primary' @click="addChat" :disabled="loading">创建自动加群订单</Button>
 				</div>
@@ -66,6 +69,7 @@
 				    </Collapse>
 				</div>
 			</div>
+			<Page :page-size="50" :total="5000" simple @on-change="getAddChat"/>
 		</div>
 	</div>
 </template>
@@ -79,7 +83,7 @@ export default{
 	mounted(){
 		this.getClient()
 		this.getChat()
-		this.getAddChat()
+		this.getAddChat(1)
 	},
 	data(){
 		return {
@@ -92,7 +96,6 @@ export default{
 				phone:''
 			},
 			orderList:[],
-			page:1,
 			loading:false
 		}
 	},
@@ -136,8 +139,8 @@ export default{
 				this.loading = false
 			})
 		},
-		getAddChat(){
-			getAddChat(this.page).then(({data})=>{
+		getAddChat(page){
+			getAddChat(page).then(({data})=>{
 				if (data.success) {
 					this.orderList = data.msg
 				}else{
@@ -146,6 +149,18 @@ export default{
 			}).catch(({response})=>{
 				this.$Notice.error({title:response.data.msg})
 			})
+		},
+		checkAll(e){
+			if (e) {
+				this.params.chatids = []
+				for (var i = this.chatList.length - 1; i >= 0; i--) {
+					if (!this.chatList[i].auth) {
+						this.params.chatids.push(this.chatList[i].chatid)
+					}
+				}
+			}else{
+				this.params.chatids = []
+			}
 		}
 	}
 }	
@@ -167,6 +182,7 @@ export default{
 			}
 		}
 		.add-chat-list{
+			height: 500px;
 			.add-chat-item{
 				.title,.status{
 					padding: 10px;
