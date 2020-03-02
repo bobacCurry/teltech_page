@@ -182,7 +182,7 @@ export default{
 			}
 		}
 		.add-chat-list{
-			height: 500px;
+			min-height: 500px;
 			.add-chat-item{
 				.title,.status{
 					padding: 10px;
