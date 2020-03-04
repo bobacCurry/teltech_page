@@ -129,7 +129,7 @@ export default{
 			addChat(this.params).then(({data})=>{
 				if (data.success) {
 					this.$Notice.success({title:data.msg})
-					this.getAddChat()
+					this.getAddChat(1)
 				}else{
 					this.$Notice.error({title:data.msg})
 				}
