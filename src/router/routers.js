@@ -141,16 +141,16 @@ export default [
         meta: {
           title: '群组创建管理'
         },
-        component: () => import('@/view/service/chat.vue')
+        component: () => import('@/view/service/chat/list.vue')
       },
-      // {
-      //   path: 'add',
-      //   name: 'service_add',
-      //   meta: {
-      //     title: '群组拉人管理'
-      //   },
-      //   component: () => import('@/view/service/add.vue')
-      // }
+      {
+        path: 'add',
+        name: 'service_add',
+        meta: {
+          title: '群组拉人管理'
+        },
+        component: () => import('@/view/service/add.vue')
+      }
     ]
   },
   {

@@ -22,12 +22,18 @@
 		<h2>新增拉人服务</h2>
 		<div class="add-user flex-start-center">
 			<Card class="add-item" v-for="(item,key) in addList" :key="key">
+				<div class="flex-start-center">
+					<div class="add-item-title">拉人的目标群 :  {{item.target}}</div>
+					<div class="add-item-button">
+						<Button type="primary" @click="AddRun(item._id)">开始拉人</Button>
+					</div>
+				</div>
 		        <Collapse v-model="panel">
-			        <Panel name="1">
+			        <!-- <Panel :name="'1'+key">
 			        	拉人的目标群
 			           	<p slot="content">{{item.target}}</p>
-			        </Panel>
-			        <Panel name="2">
+			        </Panel> -->
+			        <Panel :name="'2'+key">
 			            拉人的telegram号
 			            <div slot="content">
 			            	<div class="flex-start-center">
@@ -42,7 +48,7 @@
 				            </div>
 			            </div>
 			        </Panel>
-			        <Panel name="3">
+			        <Panel :name="'3'+key">
 			            从下列群拉人
 			            <div slot="content">
 			            	<div class="flex-start-center">
@@ -55,15 +61,15 @@
 				            </div>
 			            </div>
 			        </Panel>
-			        <Panel name="4">
+			        <Panel :name="'4'+key">
 			            需要拉的用户数量
 			            <p slot="content">{{item.uids.length}} 个</p>
 			        </Panel>
-			        <Panel name="5">
+			        <Panel :name="'5'+key">
 			            拉入成功的数量
 			            <p slot="content">{{item.success.length}} 个</p>
 			        </Panel>
-			        <Panel name="6">
+			        <Panel :name="'6'+key">
 			            拉入失败的数量
 			            <p slot="content">{{item.fail.length}} 个</p>
 			        </Panel>
@@ -75,7 +81,7 @@
 </template>
 <script>
 import {getUserClient} from '@/api/share'
-import {NewChatUser,GetChatUser,AddChatPhone,AddChatUser} from '@/api/group'
+import {NewChatUser,GetChatUser,AddChatPhone,AddChatUser,AddRun} from '@/api/group'
 export default{
 	data(){
 		return {
@@ -90,7 +96,6 @@ export default{
 		}
 	},
 	mounted(){
-
 		this.getChatUser()
 
 		this.getUserClient()	
@@ -214,6 +219,32 @@ export default{
 
 				this.loading = false				
 			})
+		},
+		AddRun(_id){
+
+			this.$Spin.show({
+
+                render: (h) => {
+             
+                    return h('div', '正在拉人中，请耐性等待！')
+                }
+            })
+			
+			AddRun(_id).then(({data})=>{
+				
+				if (!data.success) {
+
+					return this.$Notice.error({title:data.msg})
+				
+				}
+
+				this.$Notice.success({title:'拉人完毕'})
+
+			}).finally(()=>{
+
+				this.$Spin.hide()
+			
+			})
 		}
 	}
 }
@@ -228,8 +259,15 @@ export default{
 			.add-item{
 				width: 45%;
 				margin-right: 5%;
+				.add-item-title{
+					padding: 10px;
+					width: 70%;
+				}
+				.add-item-button{
+					padding: 10px;
+				}
 			}
 		}
 	}
-}	
+}
 </style>
