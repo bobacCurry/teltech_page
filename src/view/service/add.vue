@@ -24,9 +24,9 @@
 			<Card class="add-item" v-for="(item,key) in addList" :key="key">
 				<div class="flex-start-center">
 					<div class="add-item-title">拉人的目标群 :  {{item.target}}</div>
-					<!-- <div class="add-item-button">
-						<Button type="primary" @click="AddRun(item._id)">开始拉人</Button>
-					</div> -->
+					<div class="add-item-button">
+						<Button :type="!item.status?'primary':'info'" @click="AddRun(item._id,item.status?0:1,key)">{{item.status?'停止拉人服务':'开启拉人服务'}}</Button>
+					</div>
 				</div>
 		        <Collapse v-model="panel">
 			        <!-- <Panel :name="'1'+key">
@@ -220,30 +220,19 @@ export default{
 				this.loading = false				
 			})
 		},
-		AddRun(_id){
+		AddRun(_id,status,key){
 
-			this.$Spin.show({
-
-                render: (h) => {
-             
-                    return h('div', '正在拉人中，请耐性等待！')
-                }
-            })
-			
-			AddRun(_id).then(({data})=>{
+			AddRun(_id,status).then(({data})=>{
 				
 				if (!data.success) {
 
 					return this.$Notice.error({title:data.msg})
-				
 				}
 
-				this.$Notice.success({title:'拉人完毕'})
+				this.addList[key].status = status
 
-			}).finally(()=>{
+				this.$Notice.success({title:'设置成功'})
 
-				this.$Spin.hide()
-			
 			})
 		}
 	}

@@ -28,9 +28,9 @@ export const AddChatUser = (chatid,_id) => {
   })
 }
 
-export const AddRun = (_id) => {
+export const AddRun = (_id,status) => {
   return axios.request({
-    url: `group/add_member/add_run/${_id}`,
+    url: `group/add_member/add_run/${_id}/${status}`,
     method: 'post'
   })
 }
