@@ -24,9 +24,9 @@
 			<Card class="add-item" v-for="(item,key) in addList" :key="key">
 				<div class="flex-start-center">
 					<div class="add-item-title">拉人的目标群 :  {{item.target}}</div>
-					<div class="add-item-button">
+					<!-- <div class="add-item-button">
 						<Button type="primary" @click="AddRun(item._id)">开始拉人</Button>
-					</div>
+					</div> -->
 				</div>
 		        <Collapse v-model="panel">
 			        <!-- <Panel :name="'1'+key">
