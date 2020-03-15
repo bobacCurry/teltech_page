@@ -63,15 +63,15 @@
 			        </Panel>
 			        <Panel :name="'4'+key">
 			            需要拉的用户数量
-			            <p slot="content">{{item.uids.length}} 个</p>
+			            <p slot="content">{{item.uids}} 个</p>
 			        </Panel>
 			        <Panel :name="'5'+key">
 			            拉入成功的数量
-			            <p slot="content">{{item.success.length}} 个</p>
+			            <p slot="content">{{item.success}} 个</p>
 			        </Panel>
 			        <Panel :name="'6'+key">
 			            拉入失败的数量
-			            <p slot="content">{{item.fail.length}} 个</p>
+			            <p slot="content">{{item.fail}} 个</p>
 			        </Panel>
 			    </Collapse>
 		    </Card>
