@@ -19,9 +19,17 @@
 		</div>
 	</div>
 	<div class="zone-frame">
-		<h2>新增拉人服务</h2>
+		<h2>拉人服务列表</h2>
 		<div class="add-user flex-start-center">
 			<Card class="add-item" v-for="(item,key) in addList" :key="key">
+				<div>
+					<div class="add-item-title">拉人的目标群 :  {{item.target}}</div>
+					<div class="add-item-button">
+						<Button :type="!item.status?'primary':'info'" @click="AddRun(item._id,item.status?0:1,key)">{{item.status?'停止服务':'开启服务'}}</Button>
+						&nbsp;&nbsp;&nbsp;
+			            <Button type="warning" :disabled="loading" @click="DelChatUser(key)">删除服务</Button>
+					</div>
+				</div>
 		        <Collapse v-model="panel">
 			        <Panel :name="`${key}-1`">
 			        	拉人的目标群
@@ -35,10 +43,10 @@
 							        <Option v-for="(client,key) in clientList" :value="client.phone" :key="key" v-if="item.phone.indexOf(client.phone)===-1">{{ client.phone }}</Option>
 							    </Select>
 							    &nbsp;
-			            		<Button type="primary" :disabled="loading" @click="addPhonePost(addPhone,item._id)">添加拉人号</Button>
+							    <Button type="primary" :disabled="loading" @click="addPhonePost(addPhone,item._id)">添加拉人号</Button>
 							</div>
 							<div style="margin-top: 10px">
-				            	<Tag color="primary" v-for="(item,key) in item.phone">{{item}}</Tag>
+				            	<Tag color="primary" v-for="(item1,key1) in item.phone" closable @on-close="delPhone(item._id,item1,key)">{{item1}}</Tag>
 				            </div>
 			            </div>
 			        </Panel>
@@ -46,7 +54,7 @@
 			            从下列群拉人
 			            <div slot="content">
 			            	<div class="flex-start-center">
-			            		<Input v-model="addChat" placeholder="群名称（将人拉入该群）" style="width: 50%"/>
+			            		<Input v-model="addChat" placeholder="群名称（从该群中拉人）" style="width: 50%"/>
 			            		&nbsp;
 			            		<Button type="primary" :disabled="loading" @click="AddChatUser(addChat,item._id)">添加群</Button>
 			            	</div>
@@ -57,15 +65,15 @@
 			        </Panel>
 			        <Panel :name="`${key}-4`">
 			            需要拉的用户数量
-			            <p slot="content">{{item.uids.length}} 个</p>
+			            <p slot="content">{{item.uids}} 个</p>
 			        </Panel>
 			        <Panel :name="`${key}-5`">
 			            拉入成功的数量
-			            <p slot="content">{{item.success.length}} 个</p>
+			            <p slot="content">{{item.success}} 个</p>
 			        </Panel>
 			        <Panel :name="`${key}-6`">
 			            拉入失败的数量
-			            <p slot="content">{{item.fail.length}} 个</p>
+			            <p slot="content">{{item.fail}} 个</p>
 			        </Panel>
 			        <Panel :name="`${key}-7`">
 			            拉人状态
@@ -79,7 +87,7 @@
 </template>
 <script>
 import {getUserClient} from '@/api/share'
-import {NewChatUser,GetChatUser,AddChatPhone,AddChatUser} from '@/api/group'
+import {NewChatUser,GetChatUser,AddChatPhone,AddChatUser,AddRun,DelChatUser,DelChatPhone} from '@/api/group'
 export default{
 	data(){
 		return {
@@ -94,7 +102,6 @@ export default{
 		}
 	},
 	mounted(){
-
 		this.getChatUser()
 
 		this.getUserClient()	
@@ -218,6 +225,71 @@ export default{
 
 				this.loading = false				
 			})
+		},
+		AddRun(_id,status,key){
+
+			AddRun(_id,status).then(({data})=>{
+				
+				if (!data.success) {
+
+					return this.$Notice.error({title:data.msg})
+				}
+
+				this.addList[key].status = status
+
+				this.$Notice.success({title:'设置成功'})
+
+			})
+		},
+		delPhone(_id,phone,key){
+			
+			DelChatPhone(_id,phone).then(({data})=>{
+				
+				if (!data.success) {
+				
+					return this.$Notice.error({title:'删除失败'})
+				}
+
+				this.addList[key].phone = this.addList[key].phone.filter((item)=>{
+
+					if (phone === item) return false
+
+					return true
+				})
+				
+				return this.$Notice.success({title:'删除成功'})
+			})
+		},
+		DelChatUser(key){
+
+			this.$Modal.confirm({
+
+                title: '删除该服务',
+
+                content: '确认删除该服务',
+
+                onOk: () => {
+
+					DelChatUser(this.addList[key]._id).then(({data})=>{
+
+						if (!data.success) {
+
+							return this.$Notice.error({title:'删除失败'})
+
+						}
+
+						this.addList = this.addList.filter((item1,key1)=>{
+
+							if (key === key1) return false
+
+							return true
+						})
+
+						return this.$Notice.success({title:'删除成功'})
+
+					})
+                }
+            })
 		}
 	}
 }
@@ -232,8 +304,15 @@ export default{
 			.add-item{
 				width: 45%;
 				margin-right: 5%;
+				.add-item-title{
+					padding: 10px;
+					width: 70%;
+				}
+				.add-item-button{
+					padding: 10px;
+				}
 			}
 		}
 	}
-}	
+}
 </style>
