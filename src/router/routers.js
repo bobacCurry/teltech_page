@@ -135,14 +135,14 @@ export default [
         },
         component: () => import('@/view/service/group.vue')
       },
-      {
-        path: 'chat',
-        name: 'service_chat',
-        meta: {
-          title: '群组创建管理'
-        },
-        component: () => import('@/view/service/chat/list.vue')
-      },
+      // {
+      //   path: 'chat',
+      //   name: 'service_chat',
+      //   meta: {
+      //     title: '群组创建管理'
+      //   },
+      //   component: () => import('@/view/service/chat/list.vue')
+      // },
       {
         path: 'add',
         name: 'service_add',

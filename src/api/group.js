@@ -34,3 +34,17 @@ export const AddRun = (_id,status) => {
     method: 'post'
   })
 }
+
+export const DelChatUser = (_id) => {
+  return axios.request({
+    url: `group/add_member/del_chat_user/${_id}`,
+    method: 'post'
+  })
+}
+
+export const DelChatPhone = (_id,phone) => {
+  return axios.request({
+    url: `group/add_member/del_chat_phone/${_id}/${phone}`,
+    method: 'post'
+  })
+}

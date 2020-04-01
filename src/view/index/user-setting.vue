@@ -9,7 +9,7 @@
 				</div>
 				<div class="flex-between-center info-item">
 					<div class="label">账户余额：</div>
-					<div class="text">{{user.money}}</div>
+					<div class="text">{{user.money}} 金币 <a @click="show=true">充值</a></div>
 				</div>
 				<div class="flex-between-center info-item">
 					<div class="label">vip用户：</div>
@@ -40,6 +40,12 @@
 				</div>
 			</div>
 		</div>
+		<Modal v-model="show" title="充值金额" @on-ok="recharge">
+	        <div class="order-info">
+	        	<Input placeholder="请输入充值金币数量：1RMB=10金币" v-model="order.money" type="number"/>
+	        </div>
+	        <div class="order-info"><Input v-model="order.memo" placeholder='订单备注'/></div>
+	    </Modal>
 	</div>
 </template>
 <script>
@@ -57,7 +63,12 @@ export default{
 				old_password:'',
 				new_password:'',
 				cfm_password:''
-			}
+			},
+			order:{
+				money:'',
+				memo:''
+			},
+			show:false
 		}
 	},
 	computed:{
@@ -78,6 +89,15 @@ export default{
 			}).catch((e)=>{
 				this.$Notice.error({title:e.response.data.msg})
 			})
+		},
+		recharge(){
+			if (!this.order.money) {
+				return this.$Notice.success({title:'请填写充值金额'})
+			}
+			if (!this.order.memo) {
+				return this.$Notice.success({title:'请填写充值备注'})
+			}
+			
 		}
 	}
 }	
@@ -113,5 +133,8 @@ export default{
 			border-left: 1px solid #f7f7f7;
 		}
 	}
+}
+.order-info{
+	margin-bottom: 20px;
 }
 </style>
