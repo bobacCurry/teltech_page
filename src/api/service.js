@@ -58,3 +58,17 @@ export const getAddChat = (page) => {
       method: 'get'
     })
 }
+
+export const delAddChat = (_id) => {
+    return axios.request({
+      url: `/service/vip/del_add_chat/${_id}`,
+      method: 'post'
+    })
+}
+
+export const updateAddChat = (_id) => {
+    return axios.request({
+      url: `/service/vip/update_add_chat/${_id}`,
+      method: 'post'
+    })
+}

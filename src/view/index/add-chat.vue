@@ -40,6 +40,10 @@
 						<span v-if="item.status===0" style="color: green">执行中</span>
 						<span v-if="item.status===1" style="color: blue">执行完毕</span>
 						<span v-if="item.status===-1" style="color: red">执行失败</span>
+						&nbsp;&nbsp;
+						<Button type="primary" size="small" v-if="item.status===1" @click="updateAddChat(item._id,key)">启动服务</Button>
+						&nbsp;&nbsp;
+						<Button type="primary" size="small" @click="delAddChat(item._id,key)">删除服务</Button>
 					</div>
 					<Collapse>
 				        <Panel name="1">
@@ -77,7 +81,7 @@
 import {chatType} from '@/config/client'
 import {getUserClient} from '@/api/share'
 import {getChat} from '@/api/share'
-import {addChat} from '@/api/service'
+import {addChat,delAddChat,updateAddChat} from '@/api/service'
 import {getAddChat} from '@/api/client'
 export default{
 	mounted(){
@@ -161,6 +165,39 @@ export default{
 			}else{
 				this.params.chatids = []
 			}
+		},
+		delAddChat(_id,key){
+
+			this.$Modal.confirm({
+                
+                title: '确认删除',
+                
+                content: '确认删除该单',
+                
+                onOk: () => {
+                    
+                    delAddChat(_id).then(({data})=>{
+					
+						if (data.success) {
+					
+							this.orderList.splice(key)
+					
+						}else{
+					
+							this.$Notice.error({title:data['msg']})
+						}
+					})
+                }
+            })
+		},
+		updateAddChat(_id,key){
+			updateAddChat(_id).then(({data})=>{
+				if (data.success) {
+					this.orderList[key].status = 0
+				}else{
+					this.$Notice.error({title:data['msg']})
+				}
+			})
 		}
 	}
 }	
