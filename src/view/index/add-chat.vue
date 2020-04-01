@@ -63,7 +63,7 @@
 				        <Panel name="4">
 				            加群信息
 				            <p slot="content">
-				            	{{item.info}}
+				            	{{item.msg}}
 				        	</p>
 				        </Panel>
 				    </Collapse>
