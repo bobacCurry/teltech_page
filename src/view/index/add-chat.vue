@@ -180,7 +180,7 @@ export default{
 					
 						if (data.success) {
 					
-							this.orderList.splice(key)
+							this.orderList.splice(key,1)
 					
 						}else{
 					
