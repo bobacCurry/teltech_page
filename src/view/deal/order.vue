@@ -9,6 +9,7 @@
 	          	<div class="item-info" v-if="item.type==1">购买个数： {{item.nums}} 个</div>
 	          	<div class="item-info">订单状态： {{item.status==1?'已完成':'未完成'}}</div>
 	          	<div class="item-info">订单备注： {{item.memo}}</div>
+	          	<div class="item-info">创建时间： {{item.created_at|getData}}</div>
 	        </Card>
 		</li>
 	</ul>	
@@ -20,6 +21,18 @@ import {serviceType} from '@/config/client'
 export default{
 	mounted(){
 		this.getOrder()
+	},
+	filters:{
+		getData(val){
+			
+			let year = new Date(val).getFullYear()
+
+			let month = new Date(val).getMonth() + 1
+
+			let day = new Date(val).getDate()
+
+			return year + '-' + month + '-' + day
+		}
 	},
 	data(){
 		return {
@@ -47,7 +60,7 @@ export default{
 	.order-item-frame{
 		width: 25%;
 		.order-item{
-			height: 200px;
+			height: 220px;
 			.item-info{
 				margin-top: 10px;
 			}
