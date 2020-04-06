@@ -14,6 +14,7 @@
 	          	<div class="item-info" v-if="item.type==1">购买个数： {{item.nums}} 个</div>
 	          	<div class="item-info">订单状态： {{item.status==1?'已完成':'未完成'}}</div>
 	          	<div class="item-info">订单备注： {{item.memo}}</div>
+	          	<div class="item-info">订单时间： {{item.created_at|getData}}</div>
 	          	<div class="item-info">
 	          		<Button v-if="item.status==0" type="primary" @click="startOrder(item._id)">通过审核</Button>
 	          		<span v-if="item.status==1" style="color: red">审核已通过</span>
@@ -42,6 +43,18 @@ export default{
 				page:1,
 				status:0
 			}
+		}
+	},
+	filters:{
+		getData(val){
+			
+			let year = new Date(val).getFullYear()
+
+			let month = new Date(val).getMonth() + 1
+
+			let day = new Date(val).getDate()
+
+			return year + '-' + month + '-' + day
 		}
 	},
 	methods:{
@@ -74,7 +87,7 @@ export default{
 	.order-item-frame{
 		width: 25%;
 		.order-item{
-			height: 230px;
+			height: 260px;
 			.item-info{
 				margin-top: 10px;
 			}
