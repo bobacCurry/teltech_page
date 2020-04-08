@@ -7,7 +7,7 @@
 	          	<div class="item-info">服务类型： {{serviceType[item.type]}}</div>
 	          	<div class="item-info" v-if="item.type==0">购买天数： {{item.days}} 天 </div>
 	          	<div class="item-info" v-if="item.type==1">购买个数： {{item.nums}} 个</div>
-	          	<div class="item-info">订单状态： {{item.status==1?'已完成':'未完成'}}</div>
+	          	<div class="item-info">订单状态： {{item.status|getStatus}}</div>
 	          	<div class="item-info">订单备注： {{item.memo}}</div>
 	          	<div class="item-info">创建时间： {{item.created_at|getData}}</div>
 	        </Card>
@@ -23,6 +23,15 @@ export default{
 		this.getOrder()
 	},
 	filters:{
+		getStatus(val){
+			if (val===1) {
+				return '审核通过'
+			}else if(val===-1){
+				return '审核被拒绝'
+			}else{
+				return '暂未审核'
+			}
+		},
 		getData(val){
 			
 			let year = new Date(val).getFullYear()

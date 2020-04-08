@@ -30,3 +30,10 @@ export const startOrder = (_id) => {
     	method: 'post'
   	})
 }
+
+export const delOrder = (_id) => {
+  return axios.request({
+      url: `/admin/order/del_order/${_id}`,
+      method: 'post'
+    })
+}

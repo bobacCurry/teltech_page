@@ -17,6 +17,8 @@
 	          	<div class="item-info">订单时间： {{item.created_at|getData}}</div>
 	          	<div class="item-info">
 	          		<Button v-if="item.status==0" type="primary" @click="startOrder(item._id)">通过审核</Button>
+	          		&nbsp;
+	          		<Button v-if="item.status==0" type="error" @click="delOrder(item._id)">拒绝通过</Button>
 	          		<span v-if="item.status==1" style="color: red">审核已通过</span>
 	          	</div>
 	        </Card>
@@ -28,7 +30,7 @@
 </div>	
 </template>
 <script>
-import {getOrder,startOrder} from '@/api/order'
+import {getOrder,startOrder,delOrder} from '@/api/order'
 import {serviceType} from '@/config/client'
 export default{
 	mounted(){
@@ -74,6 +76,22 @@ export default{
 					this.$Notice.error({title:r.data.msg})
 				}
 			})
+		},
+		delOrder(_id){
+			this.$Modal.confirm({
+                title: '拒绝通过',
+                content: '拒绝通过该审核',
+                onOk: () => {
+                    delOrder(_id).then((r)=>{
+						if (r.data.success) {
+							this.$Notice.success({title:r.data.msg})
+							this.getOrder(this.paramsz)
+						}else{
+							this.$Notice.error({title:r.data.msg})
+						}
+					})
+                }
+            });
 		},
 		changePage(e){
 			this.params.page=e
