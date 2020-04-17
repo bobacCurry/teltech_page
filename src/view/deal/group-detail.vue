@@ -8,7 +8,7 @@
 			<div class="content-title">业务配置</div>
 			<div class="flex-start-center">
 				<div class="option-item">
-					<Select v-model="order.chat_type" :disabled="true" style="width:100px" placeholder="广告业务类型" >
+					<Select v-model="order.chat_type" style="width:100px" placeholder="广告业务类型" @on-change="changeType">
 				        <Option v-for="(item,key) in chatType" :value="key" :key="key">{{ item }}</Option>
 				    </Select>
 				</div>
@@ -112,6 +112,10 @@ export default{
 		}
 	},
 	methods:{
+		changeType(e){
+			this.order.chat_type = e
+			this.getChat()
+		},
 		getDetail(_id){
 			getOnePush(_id).then((r)=>{
 				if (!r.data.success) {
