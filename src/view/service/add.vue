@@ -77,7 +77,11 @@
 			        </Panel>
 			        <Panel :name="`${key}-7`">
 			            拉人状态
-			            <p slot="content">{{item.status?'已拉完！':'正在拉。。。'}}</p>
+			            <div slot="content">
+			            	<p>今日已拉次数 {{item.count}}</p>
+			            	<br/>
+			            	<p>下次可拉时间 {{item.nexttime|moment("YYYY-MM-DD HH:mm")}}</p>
+			            </div>
 			        </Panel>
 			    </Collapse>
 		    </Card>

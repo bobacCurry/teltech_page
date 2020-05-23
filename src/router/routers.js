@@ -78,7 +78,6 @@ export default [
     component: Main,
     meta: {
       hideInBread: true,
-      notCache: true,      
       title: '基础配置',
       icon: 'md-home'
     },
