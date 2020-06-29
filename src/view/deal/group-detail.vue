@@ -39,6 +39,9 @@
 				<div class="option-item">
 					<Input v-model="order.title" placeholder="服务备注"/>
 				</div>
+				<div class="info-item">
+					<Checkbox @on-change="checkAll">全选</Checkbox>
+				</div>
 			</div>
 		</div>
 		<div class="content">
@@ -242,7 +245,19 @@ export default{
     				this.$Notice.error({title:data.msg})
     			}
     		})
-    	}
+    	},
+    	checkAll(e){
+			if (e) {
+				this.order.chat = []
+				for (var i = this.chatList.length - 1; i >= 0; i--) {
+					if (!this.chatList[i].auth) {
+						this.order.chat.push(this.chatList[i].chatid)
+					}
+				}
+			}else{
+				this.order.chat = []
+			}
+		}
 	}
 }	
 </script>
