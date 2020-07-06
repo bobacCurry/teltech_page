@@ -102,7 +102,7 @@ export default [
         path: '/add_chat',
         name: 'add_chat',
         meta: {
-          title: '自动加群 (vip专属)'
+          title: '自动加群'
         },
         component: () => import('@/view/index/add-chat.vue')
       },

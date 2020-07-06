@@ -40,7 +40,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000/', // 后台服务器的ip地址
+        target: 'http://localhost:8000/', // 后台服务器的ip地址
         pathRewrite: { '^/api': '/' },
         changeOrigin: true
       }
