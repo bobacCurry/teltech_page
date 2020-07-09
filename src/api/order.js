@@ -2,17 +2,16 @@ import axios from '@/libs/api.request'
 
 export const addGroupOrder = (order) => {
   	return axios.request({
-    	url: `/service/order/add_group_order`,
+    	url: `/service/order/add_order`,
     	method: 'post',
     	data:order
   	})
 }
 
-export const getUserOrder = (params) => {
+export const getUserOrder = (page,status) => {
 	return axios.request({
-    	url: `/service/order/get_order`,
-    	method: 'get',
-    	params
+    	url: `/service/order/get_order/${page}/${status}`,
+    	method: 'get'
   	})
 }
 

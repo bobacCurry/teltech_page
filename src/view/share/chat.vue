@@ -72,9 +72,13 @@ export default {
 			}
 			addChat(this.new_chat.chatname,this.new_chat.type,this.new_chat.auth).then((r)=>{
 				// this.getUserChat()
-				this.new_chat.chatname = ''
-				this.new_chat.type = ''
-				this.new_chat.auth = ''
+				if (r.data.success) {
+					this.new_chat.chatname = ''
+					this.new_chat.type = ''
+					this.new_chat.auth = ''
+				}else{
+					return this.$Notice.error({title:r.data.msg})
+				}
 				return this.$Notice.success({title:r.data.msg})
 			}).catch((e)=>{
 				return this.$Notice.error({title:e.response.data.msg})

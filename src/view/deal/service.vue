@@ -13,8 +13,8 @@
 		          	</div>
 		          	<div class="item-info">
 		          		到期时间： 
-		          		<span v-if="item.expire">{{item.expire|expire}}<a @click="order.sid=item._id;show=true">（续时）</a></span>
-		          		<span v-else>未购买<a @click="order.sid=item._id;show=true">（点击下单）</a></span>
+		          		<span v-if="item.expire">{{item.expire|expire}}<a @click="order.pid=item._id;show=true">（续时）</a></span>
+		          		<span v-else>未购买<a @click="order.pid=item._id;show=true">（点击下单）</a></span>
 		          	</div>
 		          	<div class="item-info flex-between-center">
 		          		<a @click="$router.push('/deal/service-detail/'+item._id)">查看服务详情</a>
@@ -46,7 +46,7 @@ export default{
 	filters:{
 		expire(e){
 
-			let date = new Date(e*1000)
+			let date = new Date(e)
 
 			let year = date.getFullYear()
 
@@ -64,7 +64,7 @@ export default{
 			textType,
 			groupFee,
 			order:{
-				sid:'',
+				pid:'',
 				days:'',
 				memo:''
 			},
@@ -81,7 +81,7 @@ export default{
 		},
 		addOrder(){
 
-			if (!this.order.sid) {
+			if (!this.order.pid) {
 
 				return this.$Notice.error({title:'服务数据有误'})
 			
@@ -113,7 +113,7 @@ export default{
 			})
 		},
 		cancel(){
-			this.order.sid = ''
+			this.order.pid = ''
 		},
 		changeStatus(_id,key){
 			changeStatus(_id).then((r)=>{
@@ -124,7 +124,7 @@ export default{
 				
 				}else{
 
-					this.serviceList[key].status = r.data.status
+					this.serviceList[key].status = !this.serviceList[key].status
 
 					return this.$Notice.success({title:r.data.msg})
 				}
