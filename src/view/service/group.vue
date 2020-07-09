@@ -198,7 +198,12 @@ export default{
 					this.$router.push('/deal/service')
 
 					return this.$Notice.success({title:r.data.msg})
+				
+				}else{
+					
+					return this.$Notice.error({title:r.data.msg})
 				}
+
 			}).catch((e)=>{
 			
 				this.$Notice.error({title:e.response.data.msg})
