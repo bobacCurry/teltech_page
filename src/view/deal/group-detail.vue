@@ -82,8 +82,9 @@ import {updatePush,getOnePush} from '@/api/service'
 import {uploadImg} from '@/api/data'
 export default{
 	mounted(){
+
 		this.getDetail(this.$route.params._id)
-		// this.getChat()
+		
 		this.getClient()
 	},
 	data(){
@@ -106,7 +107,7 @@ export default{
 				media:'',
 				caption:'',
 				minute:'',
-				count:3
+				count:4
 			}
 		}
 	},
@@ -148,7 +149,7 @@ export default{
 					this.order = r.data.msg
 					this.phone = r.data.msg.phone
 					this.order.minute = r.data.msg.minute[0]
-					this.order.count = 3
+					this.order.count = r.data.msg.count
 					this.getChat()
 				}
 			})

@@ -128,7 +128,7 @@ export default{
 				media:'',
 				caption:'',
 				minute:0,
-				count:3
+				count:4
 			}
 		}
 	},
@@ -200,7 +200,7 @@ export default{
 					return this.$Notice.success({title:r.data.msg})
 				
 				}else{
-					
+
 					return this.$Notice.error({title:r.data.msg})
 				}
 
