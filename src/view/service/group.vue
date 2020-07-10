@@ -96,12 +96,10 @@ export default{
 			return gap
 		},
 		minuteList(){
-			
-			let gap = 60/this.order.count
 
 			let minuteList = []
 
-			for (var i = 0; i < gap ; i++) {
+			for (var i = 0; i < this.gap ; i++) {
 				
 				minuteList.push(i)
 			}

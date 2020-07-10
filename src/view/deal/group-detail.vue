@@ -123,11 +123,9 @@ export default{
 		},
 		minuteList(){
 			
-			let gap = 60/this.order.count
-
 			let minuteList = []
 
-			for (var i = 0; i < gap ; i++) {
+			for (var i = 0; i < this.gap ; i++) {
 				
 				minuteList.push(i)
 			}
@@ -149,7 +147,7 @@ export default{
 					this.order = r.data.msg
 					this.phone = r.data.msg.phone
 					this.order.minute = r.data.msg.minute[0]
-					this.order.count = r.data.msg.count
+					this.order.count = r.data.msg.count?r.data.msg.count:4
 					this.getChat()
 				}
 			})
@@ -177,12 +175,6 @@ export default{
 							this.chat.push(item.chatid)
 						}
 					})
-
-					// this.chat = this.order.chat.filter((e)=>{
-						
-					// 	return chatList.indexOf(e.chatid) !== -1
-					
-					// })
 				}
 			})
 		},
