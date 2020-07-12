@@ -60,7 +60,7 @@
 				<div class="image-frame" v-if="!order.media" @click="selectImg">
 					<Icon type="ios-add-circle" size="100"/>
 				</div>
-				<div class="image-frame back-image" v-else :style="{'background-image': 'url('+order.media+')'}">
+				<div class="image-frame back-image" v-else :style="{'background-image': 'url('+'/api'+order.media+')'}">
 					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media=''"/>
 				</div>
 				<form id="img-form" style="display: none">
@@ -271,7 +271,7 @@ export default{
     	upload(image){
     		uploadImg({image}).then(({data})=>{
     			if (data.success) {
-    				this.order.media = data.path
+    				this.order.media = data.msg
     			}else{
     				this.$Notice.error({title:data.msg})
     			}
