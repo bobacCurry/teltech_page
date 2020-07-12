@@ -29,7 +29,7 @@
             </div>
             <div class="bind-item">
               <Input v-model="newClient.code" placeholder="输入验证码">
-                <Button slot="append" style="width: 100px" @click="confirmCode">确认验证码</Button>
+                <Button slot="append" style="width: 100px" @click="confirmCode" :disabled="loading">确认验证码</Button>
               </Input>
             </div>
             <div class="bind-item">
@@ -110,6 +110,8 @@ export default {
       }).finally(()=>{
       
         this.stopCount()
+
+        this.loading = false
         
       })
       
@@ -134,10 +136,6 @@ export default {
 
         console.log(r.data)
 
-      }).finally(()=>{
-      
-        this.loading = false
-        
       })
     },
     cancelConfirm(){
