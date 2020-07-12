@@ -1,7 +1,7 @@
 <template>
 <div class="service-add">
 	<div class="zone-frame">
-		<h2>新增拉人服务</h2>
+		<h2>新增拉人服务（暂时关闭）</h2>
 		<div class="add-user flex-start-center">
 			<div class="info-item">
 				<Input v-model="target" placeholder="群名称（将人拉入该群）"/>
@@ -106,9 +106,9 @@ export default{
 		}
 	},
 	mounted(){
-		this.getChatUser()
+		// this.getChatUser()
 
-		this.getUserClient()	
+		// this.getUserClient()	
 	},
 	methods:{
 		add(){

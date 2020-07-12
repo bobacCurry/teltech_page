@@ -18,7 +18,7 @@ export const updatePush = (_id,data) => {
 
 export const getPush = (page) => {
   	return axios.request({
-    	url: `/service/push/get?page=${page}`,
+    	url: `/service/push/get/${page}`,
     	method: 'get'
   	})
 }

@@ -24,16 +24,16 @@
 				</div>
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
-				        <Option v-for="(item,key) in minuteList" :value="item" :key="key">
-				        	{{ item }} 分 - {{order.count>1?item + 20:''}} 分 - {{order.count>2?item + 40:''}} 分
+				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
+				        	{{[ item, item+gap, item+2*gap, item+3*gap ].slice(0,order.count).join(' - ')}} 分
 				        </Option>
 				    </Select>
 				</div>
 				<div class="option-item">
 					<Select v-model="order.count" style="width:150px">
-				        <Option :value="1">每小时发送1次</Option>
-				        <Option :value="2">每小时发送2次</Option>
-				        <Option :value="3">每小时发送3次</Option>
+						<Option :value="item" v-for="(item,key) in pushCount">
+				        	每小时发送{{item}}次
+				        </Option>
 				    </Select>
 				</div>
 				<div class="option-item">
@@ -45,11 +45,11 @@
 			</div>
 		</div>
 		<div class="content">
-			<div class="content-title">广告群配置（已选择 {{this.order.chat.length}}个）</div>
+			<div class="content-title">广告群配置（已选择 {{this.chat.length}}个）</div>
 			<div class="flex-start-center">
-				<CheckboxGroup v-model="order.chat">
+				<CheckboxGroup v-model="chat">
 			        <Checkbox :label="item.chatid" v-for="(item,key) in chatList" :key="key">
-			            <span class="check-item">{{item.chatid}} <label v-if="item.auth" style="color:red">(需验证)</label></span>
+			            <span class="check-item">{{item.chatname}} <label v-if="item.auth" style="color:red">(需验证)</label></span>
 			        </Checkbox>
 			    </CheckboxGroup>
 			</div>
@@ -60,7 +60,7 @@
 				<div class="image-frame" v-if="!order.media" @click="selectImg">
 					<Icon type="ios-add-circle" size="100"/>
 				</div>
-				<div class="image-frame back-image" v-else :style="{'background-image': 'url('+order.media+')'}">
+				<div class="image-frame back-image" v-else :style="{'background-image': 'url('+'/api'+order.media+')'}">
 					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media=''"/>
 				</div>
 				<form id="img-form" style="display: none">
@@ -75,24 +75,26 @@
 	</div>
 </template>
 <script>
-import {chatType,textType,minuteList} from '@/config/client'
+import {chatType,textType,pushCount} from '@/config/client'
 import {getChat} from '@/api/share'
 import {getNotUsed} from '@/api/client'
 import {updatePush,getOnePush} from '@/api/service'
 import {uploadImg} from '@/api/data'
 export default{
 	mounted(){
+
 		this.getDetail(this.$route.params._id)
-		// this.getChat()
+		
 		this.getClient()
 	},
 	data(){
 		return {
 			chatType,
 			textType,
-			minuteList,
+			pushCount,
 			clientList:[],
 			chatList:[],
+			chat:[],
 			phone:'',
 			loading:false,
 			order:{
@@ -105,13 +107,30 @@ export default{
 				media:'',
 				caption:'',
 				minute:'',
-				count:3
+				count:4
 			}
 		}
 	},
 	computed:{
 		phoneList(){
 			return [...this.clientList,{phone:this.phone}]
+		},
+		gap(){
+			
+			let gap = 60/this.order.count
+
+			return gap
+		},
+		minuteList(){
+			
+			let minuteList = []
+
+			for (var i = 0; i < this.gap ; i++) {
+				
+				minuteList.push(i)
+			}
+
+			return minuteList
 		}
 	},
 	methods:{
@@ -128,7 +147,7 @@ export default{
 					this.order = r.data.msg
 					this.phone = r.data.msg.phone
 					this.order.minute = r.data.msg.minute[0]
-					this.order.count = 3
+					this.order.count = r.data.msg.count?r.data.msg.count:4
 					this.getChat()
 				}
 			})
@@ -149,10 +168,12 @@ export default{
 					
 					const chatList = r.data.msg.map(item => item.chatid)
 
-					this.order.chat = this.order.chat.filter((e)=>{
-						
-						return chatList.indexOf(e) !== -1
-					
+					this.order.chat.forEach((item,key)=>{
+
+						if (chatList.indexOf(item.chatid)!==-1) {
+							
+							this.chat.push(item.chatid)
+						}
 					})
 				}
 			})
@@ -170,7 +191,7 @@ export default{
 			if (!String(this.order.minute)) {
 				return this.$Notice.error({title:'请选择发送的时间'})
 			}
-			if (!this.order.chat.length) {
+			if (!this.chat.length) {
 				return this.$Notice.error({title:'请选择要发送的群组'})
 			}
 			if (String(this.order.text_type)==='0'&&!this.order.text.trim()) {
@@ -179,11 +200,21 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.order.chat.length>150) {
+			if (this.chat.length>150) {
 				return this.$Notice.error({title:'最多选择150个群'})			
 			}
 
 			this.loading = true
+
+			this.order.chat = []
+
+			this.chatList.forEach((item,key)=>{
+
+				if (this.chat.indexOf(item.chatid)!==-1) {
+
+					this.order.chat.push({ chatid: item.chatid, chatname: item.chatname })
+				}
+			})
 
 			updatePush(this.$route.params._id,this.order).then((r)=>{
 
@@ -240,7 +271,7 @@ export default{
     	upload(image){
     		uploadImg({image}).then(({data})=>{
     			if (data.success) {
-    				this.order.media = data.path
+    				this.order.media = data.msg
     			}else{
     				this.$Notice.error({title:data.msg})
     			}
@@ -248,14 +279,14 @@ export default{
     	},
     	checkAll(e){
 			if (e) {
-				this.order.chat = []
+				this.chat = []
 				for (var i = this.chatList.length - 1; i >= 0; i--) {
 					if (!this.chatList[i].auth) {
-						this.order.chat.push(this.chatList[i].chatid)
+						this.chat.push(this.chatList[i].chatid)
 					}
 				}
 			}else{
-				this.order.chat = []
+				this.chat = []
 			}
 		}
 	}

@@ -19,12 +19,7 @@ export default {
 	data(){
 		let columns = [
 				{title:'群名称',key:'chatid',render: (h, params) => {
-	                return h('a',{
-	                	domProps:{
-	                		href: 'https://t.me/'+params.row.chatid,
-                        	target:'_blank'
-	                	}
-	                },params.row.chatid)
+	                return h('span',params.row.chatname)
 	            }},
 				{title:'群类型',key:'type',render: (h, params) => {
 	                return h('span',chatType[params.row.type])

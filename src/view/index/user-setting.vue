@@ -7,18 +7,6 @@
 					<div class="label">用户名：</div>
 					<div class="text">{{user.userName}}</div>
 				</div>
-				<div class="flex-between-center info-item">
-					<div class="label">账户余额：</div>
-					<div class="text">{{user.money}} 金币 <a @click="show=true">充值</a></div>
-				</div>
-				<div class="flex-between-center info-item">
-					<div class="label">vip用户：</div>
-					<div class="text">{{user.vip?'是':'否'}}</div>
-				</div>
-				<div class="flex-between-center info-item" v-if="user.vip">
-					<div class="label">vip到期时间：</div>
-					<div class="text">{{user.vipExpire|getDate}}</div>
-				</div>
 			</div>
 			<div class="reset">
 				<p class="title"><b>用户密码重置</b></p>

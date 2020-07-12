@@ -6,8 +6,8 @@
           <div class="item-info">实例信息</div>
           <div class="item-info">TG账号：<b>{{item.phone}}</b></div>
           <div class="item-info">TG用户名：
-            <span v-if="item.info">{{item.info.first_name}}&nbsp;&nbsp;</span>
-            <Button  @click="getlClient(item.phone)" :disabled="loading" type="primary" size="small" shape="circle">更新</Button>
+            <span v-if="item.info">{{item.info.first_name}}</span>
+            <!-- <Button  @click="getlClient(item.phone)" :disabled="loading" type="primary" size="small" shape="circle">更新</Button> -->
           </div>
           <div class="item-info">实例状态：
             <span :style="{color: item.status==2||item.status==3||item.status==4?'red':''}">{{clientStatus[item.status]}}</span>
@@ -29,7 +29,7 @@
             </div>
             <div class="bind-item">
               <Input v-model="newClient.code" placeholder="输入验证码">
-                <Button slot="append" style="width: 100px" @click="confirmCode">确认验证码</Button>
+                <Button slot="append" style="width: 100px" @click="confirmCode" :disabled="loading">确认验证码</Button>
               </Input>
             </div>
             <div class="bind-item">
@@ -95,7 +95,7 @@ export default {
 
           this.getClient()
         
-          return this.$Notice.success({title:r.data.msg})
+          return this.$Notice.success({title:'绑定成功'})
         
         }else{
         
@@ -110,6 +110,8 @@ export default {
       }).finally(()=>{
       
         this.stopCount()
+
+        this.loading = false
         
       })
       
@@ -134,10 +136,6 @@ export default {
 
         console.log(r.data)
 
-      }).finally(()=>{
-      
-        this.loading = false
-        
       })
     },
     cancelConfirm(){

@@ -22,9 +22,14 @@ export const confirmCode = (phone,code) => {
 }
 
 
-export const addChat = (chatid,chatType,auth) => {
+export const addChat = (chatname,type,auth) => {
   	return axios.request({
-    	url: `service/chat/add_chat/${chatid}/${chatType}/${auth}`,
+    	url: `service/chat/add_chat`,
+      data:{
+        chatname,
+        type,
+        auth
+      },
     	method: 'post'
   	})
 }

@@ -1,1 +1,1 @@
-export const groupFee = [{days:30,fee:500},{days:60,fee:900},{days:90,fee:1300},{days:120,fee:1700}]
+export const groupFee = [{days:31,fee:400},{days:65,fee:800},{days:100,fee:1200},{days:140,fee:1600}]

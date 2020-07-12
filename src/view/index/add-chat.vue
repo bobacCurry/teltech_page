@@ -22,8 +22,8 @@
 			</div>
 			<div class="flex-start-center option-frame">
 				<CheckboxGroup v-model="params.chatids">
-			        <Checkbox :label="item.chatid" v-for="(item,key) in chatList" :key="key" :disabled="item.auth?true:false">
-			            <span class="check-item">{{item.chatid}} <label v-if="item.auth" style="color:red">(需验证)</label></span>
+			        <Checkbox :label="item.chatname" v-for="(item,key) in chatList" :key="key" :disabled="item.auth?true:false">
+			            <span class="check-item">{{item.chatname}} <label v-if="item.auth" style="color:red">(需验证)</label></span>
 			        </Checkbox>
 			    </CheckboxGroup>
 			</div>
@@ -159,7 +159,7 @@ export default{
 				this.params.chatids = []
 				for (var i = this.chatList.length - 1; i >= 0; i--) {
 					if (!this.chatList[i].auth) {
-						this.params.chatids.push(this.chatList[i].chatid)
+						this.params.chatids.push(this.chatList[i].chatname)
 					}
 				}
 			}else{

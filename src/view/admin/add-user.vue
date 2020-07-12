@@ -18,12 +18,6 @@
 			    </Select>
 			</div>
 			<div class="info-item">
-				<Select v-model="user.vip" placeholder="是否vip">
-			        <Option :value="0" :key="0">否</Option>
-			        <Option :value="1" :key="1">是</Option>
-			    </Select>
-			</div>
-			<div class="info-item">
 				<Button type="primary" @click="addUser">创建用户</Button>
 			</div>
 		</div>
@@ -34,7 +28,6 @@
 			<li class="flex-start-center">
 				<div class="account">账号</div>
 				<div class="name">昵称</div>
-				<div class="vip">是否vip</div>
 				<div class="action">操作</div>
 			</li>
 		</ul>
@@ -42,10 +35,7 @@
 			<li class="flex-start-center user-list-item" v-for="(item,key) in userlist" :key="key">
 				<div class="account">{{item.account}}</div>
 				<div class="name">{{item.name}}</div>
-				<div class="vip" v-if="item.vip" style="color: red">是</div>
-				<div class="vip" v-else>否</div>
 				<div class="action">
-					<Button type="primary" size="small" class="action-item" @click="setVip(item._id)">设为vip</Button>
 					<Button type="primary" size="small" class="action-item" @click="resetPwd(item._id)">重制密码</Button>
 				</div>
 			</li>
@@ -70,12 +60,10 @@ export default{
 				password:'',
 				name:'',
 				job:'',
-				vip:''
 			},
 			params:{
 				page:1,
-				job:'',
-				vip:''
+				job:''
 			},
 			page:1,
 			userlist:[]
@@ -113,14 +101,6 @@ export default{
 					return this.$Notice.success({title:'已重制密码为 123qwe'})
 				}
 			})
-		},
-		setVip(_id){
-			setVip(_id).then(({data})=>{
-				if (data.success) {
-					this.getUsers(this.page)
-					return this.$Notice.success({title:'设置vip成功'})
-				}
-			})
 		}
 	}
 }	
@@ -148,9 +128,6 @@ export default{
 		.name{
 			width: 20%;
 		}
-		.vip{
-			width: 20%;
-		}
 		.action{
 			width: 40%;
 		}
@@ -163,9 +140,6 @@ export default{
 				width: 20%;
 			}
 			.name{
-				width: 20%;
-			}
-			.vip{
 				width: 20%;
 			}
 			.action{
