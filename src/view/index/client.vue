@@ -10,8 +10,11 @@
             <!-- <Button  @click="getlClient(item.phone)" :disabled="loading" type="primary" size="small" shape="circle">更新</Button> -->
           </div>
           <div class="item-info">实例状态：
-            <span :style="{color: item.status==2||item.status==3||item.status==4?'red':''}">{{clientStatus[item.status]}}</span>
+            <span :style="{color: item.status==2||item.status==3?'red':''}">{{clientStatus[item.status]}}</span>
             <a v-if="item.status==2||item.status==4" @click="restore(item.phone)">已恢复</a>
+            <span v-if="item.status==0">
+              <a @click="$router.push(`/add_chat?phone=${item.phone}`)"> 去加群 </a>(<a @click="addFinish(item.phone,key)" style="color: red"> 已加过 </a>)
+            </span>
           </div>
           <div class="item-info">是否使用：<span v-if="item.used" style="color: red">已使用</span><span v-else>未使用</span></div>
           <div class="item-info">删除账号：<a @click="delClient(item.phone)">确认删除</a></div>
@@ -42,7 +45,7 @@
 	</div>
 </template>
 <script>  
-import {restore,delUserClient,getlClient} from '@/api/client'
+import {restore,delUserClient,getlClient,addFinish} from '@/api/client'
 import {getUserClient,sendCode,confirmCode} from '@/api/share'
 import {serviceType,clientStatus} from '@/config/client'
 export default {
@@ -74,6 +77,22 @@ export default {
           this.clientList = r.data.msg
     
         }
+      })
+    },
+    addFinish(phone,key){
+      this.$Modal.confirm({
+                
+          title: '确认加过群了么？',
+          
+          content: '这个飞机号已经加过群了是吧，没加过群要先去加群的哦～～',
+        
+          onOk: () => {
+            addFinish(phone).then(({ data })=>{
+              if (data.success) {
+                this.clientList[key].status = 1
+              }
+            })
+          }
       })
     },
     sendCode () {

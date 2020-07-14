@@ -88,6 +88,9 @@ export default{
 		this.getClient()
 		this.getChat()
 		this.getAddChat(1)
+		if (this.$route.query.phone) {
+			this.params.phone = this.$route.query.phone
+		}
 	},
 	data(){
 		return {
