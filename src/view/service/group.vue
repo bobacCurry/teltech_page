@@ -173,8 +173,8 @@ export default{
 			if (String(this.order.text_type)==='1'&&!this.order.media.trim()) {
 				return this.$Notice.error({title:'请填写广告文本'})
 			}
-			if (this.chat.length>150) {
-				return this.$Notice.error({title:'最多选择150个群'})			
+			if (this.chat.length>200) {
+				return this.$Notice.error({title:'最多选择200个群'})			
 			}
 
 			this.loading = true
