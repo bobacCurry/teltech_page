@@ -16,6 +16,9 @@
 				<div class="info-item">
 					<Checkbox @on-change="checkAll">全选</Checkbox>
 				</div>
+				<div class="info-item">
+					<Checkbox @on-change="checkUpdate">最近更新</Checkbox>
+				</div>
 				<div class="option-item">
 					<Button type='primary' @click="addChat" :disabled="loading">创建自动加群订单</Button>
 				</div>
@@ -83,6 +86,7 @@ import {getUserClient} from '@/api/share'
 import {getChat} from '@/api/share'
 import {addChat,delAddChat,updateAddChat} from '@/api/service'
 import {getAddChat} from '@/api/client'
+import {updateChat} from '@/config/update'
 export default{
 	mounted(){
 		this.getClient()
@@ -94,6 +98,7 @@ export default{
 	},
 	data(){
 		return {
+			updateChat,
 			chatType,
 			clientList:[],
 			chatList:[],
@@ -162,6 +167,18 @@ export default{
 				this.params.chatids = []
 				for (var i = this.chatList.length - 1; i >= 0; i--) {
 					if (!this.chatList[i].auth) {
+						this.params.chatids.push(this.chatList[i].chatname)
+					}
+				}
+			}else{
+				this.params.chatids = []
+			}
+		},
+		checkUpdate(e){
+			if (e) {
+				this.params.chatids = []
+				for (var i = this.chatList.length - 1; i >= 0; i--) {
+					if (!this.chatList[i].auth&&this.updateChat.indexOf(this.chatList[i].chatname)!==-1) {
 						this.params.chatids.push(this.chatList[i].chatname)
 					}
 				}
