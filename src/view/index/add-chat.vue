@@ -127,6 +127,7 @@ export default{
 			})
 		},
 		changeChatType(e){
+			this.params.chatids = []
 			this.type = e
 			this.getChat()
 		},
