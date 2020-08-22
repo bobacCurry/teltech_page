@@ -58,7 +58,7 @@
 			<div class="content-title">广告内容配置</div>
 			<div class="flex-start-center" v-if="order.text_type==1">
 				<div class="image-frame back-image" v-for="(item,key) in order.media" :style="{'background-image': 'url('+'/api'+item+')'}">
-					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media.splice(key)"/>
+					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media.splice(key,1)"/>
 				</div>
 				<div class="image-frame" v-if="order.media.length<5" @click="selectImg">
 					<Icon type="ios-add-circle" size="100"/>
