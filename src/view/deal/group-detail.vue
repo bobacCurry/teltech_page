@@ -60,7 +60,7 @@
 				<div class="image-frame back-image" v-for="(item,key) in order.media" :style="{'background-image': 'url('+'/api'+item+')'}">
 					<Icon class="close" type="ios-close-circle" size="30" color="red" @click="order.media.splice(key,1)"/>
 				</div>
-				<div class="image-frame" v-if="order.media.length<5" @click="selectImg">
+				<div class="image-frame" v-if="order.media.length<6" @click="selectImg">
 					<Icon type="ios-add-circle" size="100"/>
 				</div>
 				<form id="img-form" style="display: none">
