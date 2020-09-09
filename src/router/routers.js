@@ -60,15 +60,7 @@ export default [
           title: '订单审核'
         },
         component: () => import('@/view/admin/order')
-      },
-      // {
-      //   path: 'proxy',
-      //   name: 'admin_proxy',
-      //   meta: {
-      //     title: '代理管理'
-      //   },
-      //   component: () => import('@/view/admin/proxy')
-      // }
+      }
     ]
   },
   {
@@ -134,14 +126,6 @@ export default [
         },
         component: () => import('@/view/service/group.vue')
       },
-      // {
-      //   path: 'chat',
-      //   name: 'service_chat',
-      //   meta: {
-      //     title: '群组创建管理'
-      //   },
-      //   component: () => import('@/view/service/chat/list.vue')
-      // },
       {
         path: 'add',
         name: 'service_add',
@@ -176,6 +160,15 @@ export default [
           title: '机器人资源共享'
         },
         component: () => import('@/view/share/bot.vue')
+      },
+      {
+        path: 'bot/butler',
+        name: 'share_bot_butler',
+        meta: {
+          title: '管家机器人',
+          hideInMenu: true
+        },
+        component: () => import('@/view/share/bot/butler.vue')
       }
     ]
   },
