@@ -25,13 +25,13 @@
 				<div class="option-item">
 					<Select v-model="order.minute" style="width:200px" placeholder="请选择发送的时间(分)">
 				        <Option v-for="(item,key) in this.minuteList" :value="item" :key="key">
-				        	{{[ item, item+gap, item+2*gap, item+3*gap ].slice(0,order.count).join(' - ')}} 分
+				        	{{[ item, item+gap, item+2*gap, item+3*gap, item+4*gap, item+5*gap ].slice(0,order.count).join(' - ')}} 分
 				        </Option>
 				    </Select>
 				</div>
 				<div class="option-item">
 					<Select v-model="order.count" style="width:150px">
-				        <Option :value="item" v-for="(item,key) in pushCount">
+				        <Option :value="item" :key="key" v-for="(item,key) in countList">
 				        	每小时发送{{item}}次
 				        </Option>
 				    </Select>
@@ -75,7 +75,7 @@
 	</div>
 </template>
 <script>
-import {chatType,textType,pushCount} from '@/config/client'
+import {chatType,textType,pushCount,pushCount_1} from '@/config/client'
 import {getChat} from '@/api/share'
 import {getNotUsed} from '@/api/client'
 import {addPush} from '@/api/service'
@@ -105,6 +105,16 @@ export default{
 			}
 
 			return minuteList
+		},
+		countList(){
+			if (this.order.chat_type===2){
+
+				return pushCount_1
+			
+			}else{
+
+				return pushCount
+			}
 		}
 	},
 	data(){
