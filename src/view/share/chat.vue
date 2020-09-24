@@ -9,7 +9,7 @@
 		    <Select v-model="new_chat.auth" style="width:200px;margin-left: 20px" placeholder="是否需要加群验证">
 		        <Option v-for="(item,key) in auth" :value="key" :key="key">{{ item }}</Option>
 		    </Select>
-			<Button type="primary" style="margin-left: 20px" @click="addChat">提交群信息</Button>
+			<Button type="primary" style="margin-left: 20px" @click="addChat" :disabled="loading">提交群信息</Button>
 		</div>
 		<!-- <div class="title">
 			<div>我提交的群信息</div>
@@ -54,7 +54,8 @@ export default {
 				chatname:'',
 				type:'',
 				auth:''
-			}
+			},
+			loading: false,
 		}
 	},
 	mounted(){
@@ -70,6 +71,7 @@ export default {
 			if (!this.new_chat.chatname.trim()||!String(this.new_chat.type)||!String(this.new_chat.auth)) {
 				return this.$Notice.error({title:'信息缺失'})
 			}
+			this.loading = true
 			addChat(this.new_chat.chatname,this.new_chat.type,this.new_chat.auth).then((r)=>{
 				// this.getUserChat()
 				if (r.data.success) {
@@ -82,6 +84,8 @@ export default {
 				return this.$Notice.success({title:r.data.msg})
 			}).catch((e)=>{
 				return this.$Notice.error({title:e.response.data.msg})
+			}).finally(()=>{
+				this.loading = false
 			})
 		}
 	}
