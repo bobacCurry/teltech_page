@@ -47,3 +47,10 @@ export const getChat = (type) => {
       method: 'get'
     })
 }
+
+export const getUpdateChat = (type) => {
+    return axios.request({
+      url: `/service/chat/get_update_chat/${type}`,
+      method: 'get'
+    })
+}

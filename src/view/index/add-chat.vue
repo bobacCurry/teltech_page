@@ -83,22 +83,22 @@
 <script>
 import {chatType} from '@/config/client'
 import {getUserClient} from '@/api/share'
-import {getChat} from '@/api/share'
+import {getChat,getUpdateChat} from '@/api/share'
 import {addChat,delAddChat,updateAddChat} from '@/api/service'
 import {getAddChat} from '@/api/client'
-import {updateChat} from '@/config/update'
 export default{
 	mounted(){
 		this.getClient()
 		this.getChat()
 		this.getAddChat(1)
+		this.getUpdateChat()
 		if (this.$route.query.phone) {
 			this.params.phone = this.$route.query.phone
 		}
 	},
 	data(){
 		return {
-			updateChat,
+			updateChat:[],
 			chatType,
 			clientList:[],
 			chatList:[],
@@ -130,6 +130,7 @@ export default{
 			this.params.chatids = []
 			this.type = e
 			this.getChat()
+			this.getUpdateChat()
 		},
 		addChat(){
 			if (!this.params.phone.trim()) {
@@ -217,6 +218,16 @@ export default{
 					this.orderList[key].status = 0
 				}else{
 					this.$Notice.error({title:data['msg']})
+				}
+			})
+		},
+		getUpdateChat(){
+			this.updateChat = []
+			getUpdateChat(this.type).then(({data})=>{
+				if (data.success) {
+					data.msg.map((item)=>{
+						this.updateChat.push(item.chatname)
+					})
 				}
 			})
 		}
