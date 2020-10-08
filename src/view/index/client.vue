@@ -180,7 +180,7 @@ export default {
     },
     startCount(){
 
-      this.newClient.timer = 120
+      this.newClient.timer = 130
       
       this.countdown = setInterval(()=>{
       

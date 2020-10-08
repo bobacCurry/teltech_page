@@ -24,6 +24,7 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
+      timeout: 1000*80*2,
       headers: {
         token
       }
