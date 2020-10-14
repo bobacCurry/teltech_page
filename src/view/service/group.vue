@@ -136,7 +136,7 @@ export default{
 				media:[],
 				caption:'',
 				minute:0,
-				count:4
+				count:6
 			}
 		}
 	},

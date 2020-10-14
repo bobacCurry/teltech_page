@@ -107,7 +107,7 @@ export default{
 				media:[],
 				caption:'',
 				minute:'',
-				count:4
+				count:6
 			}
 		}
 	},
