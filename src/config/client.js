@@ -8,6 +8,6 @@ export const textType = ['文字','图片']
 
 export const chatStatus = ['未通过','通过']
 
-export const pushCount = [1,2,3,4]
+export const pushCount = [1,2,3,4,5]
 
 export const pushCount_1 = [1,2,3,4,5,6]

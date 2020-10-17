@@ -107,14 +107,14 @@ export default{
 			return minuteList
 		},
 		countList(){
-			// if (this.order.chat_type===2){
+			if (this.order.chat_type===2){
 
 				return pushCount_1
 			
-			// }else{
+			}else{
 
-			// 	return pushCount
-			// }
+				return pushCount
+			}
 		}
 	},
 	data(){
@@ -136,7 +136,7 @@ export default{
 				media:[],
 				caption:'',
 				minute:0,
-				count:6
+				count:5
 			}
 		}
 	},

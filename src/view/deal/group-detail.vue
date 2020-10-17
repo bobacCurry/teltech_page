@@ -107,7 +107,7 @@ export default{
 				media:[],
 				caption:'',
 				minute:'',
-				count:6
+				count:5
 			}
 		}
 	},
@@ -133,14 +133,14 @@ export default{
 			return minuteList
 		},
 		countList(){
-			// if (this.order.chat_type===2){
+			if (this.order.chat_type===2){
 
 				return pushCount_1
 			
-			// }else{
+			}else{
 
-			// 	return pushCount
-			// }
+				return pushCount
+			}
 		}
 	},
 	methods:{
