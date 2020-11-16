@@ -122,18 +122,27 @@ export default [
         path: 'group',
         name: 'service_group',
         meta: {
-          title: '广告定时群发'
+          title: '定时群发广告'
         },
         component: () => import('@/view/service/group.vue')
       },
       {
-        path: 'add',
-        name: 'service_add',
+        path: 'person',
+        name: 'person',
         meta: {
-          title: '群组拉人管理'
+          title: '私人发送广告'
         },
-        component: () => import('@/view/service/add.vue')
+        component: () => import('@/view/service/person.vue')
       }
+      // ,
+      // {
+      //   path: 'add',
+      //   name: 'service_add',
+      //   meta: {
+      //     title: '群组拉人管理'
+      //   },
+      //   component: () => import('@/view/service/add.vue')
+      // }
     ]
   },
   {
