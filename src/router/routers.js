@@ -126,14 +126,14 @@ export default [
         },
         component: () => import('@/view/service/group.vue')
       },
-      // {
-      //   path: 'person',
-      //   name: 'person',
-      //   meta: {
-      //     title: '私人发送广告'
-      //   },
-      //   component: () => import('@/view/service/person.vue')
-      // }
+      {
+        path: 'person',
+        name: 'person',
+        meta: {
+          title: '私人发送广告'
+        },
+        component: () => import('@/view/service/person.vue')
+      }
     ]
   },
   {

@@ -7,6 +7,10 @@
 					<div class="label">用户名：</div>
 					<div class="text">{{user.userName}}</div>
 				</div>
+				<div class="flex-between-center info-item">
+					<div class="label">金币数：</div>
+					<div class="text" style="color: red">{{user.money}}</div>
+				</div>
 			</div>
 			<div class="reset">
 				<p class="title"><b>用户密码重置</b></p>
