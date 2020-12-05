@@ -19,8 +19,14 @@
 			</li>
       <li class="client-item-frame">
         <Card class="client-item">
-          <Button type="primary" v-if="!newClient.binding" @click="newClient.binding=true">绑定已注册的TG账号</Button>
-          <div v-else>
+          <div v-if="!newClient.binding&&!newRegister.binding">
+            <Button type="primary" @click="newClient.binding=true">绑定已注册的TG账号</Button>
+          </div>
+          <br/><br/>
+          <div v-if="!newClient.binding&&!newRegister.binding">
+            <Button type="primary" @click="newRegister.binding=true">注册新的TG账号</Button>
+          </div>
+          <div v-if="newClient.binding">
             <div class="bind-item">
               <Input v-model="newClient.phone" placeholder="TG账号（带国家区号）">
                 <Button slot="append" style="width: 100px" v-if="newClient.timer" :disabled="newClient.timer>0">已发送 {{newClient.timer}}s</Button>
@@ -36,6 +42,20 @@
               <Button @click="cancelConfirm" type="error" class="cancel-bind">取消绑定</Button>
             </div>
           </div>
+          <div v-if="newRegister.binding">
+            <Select placeholder="选择项目" @on-change="changePid">
+              <Option v-for="(item,key) in myPidList" :value="key" :key="key">{{ item.cnname }}</Option>
+            </Select>
+            <br><br>
+            <Select v-model="newRegister.locale" placeholder="选择地区" v-if="newRegister.supportCountry">
+              <Option v-for="(item,key) in localList" :value="item[0]" :key="key">{{ item[0] }} - {{ item[1] }} - {{ item[2] }}</Option>
+            </Select>
+            <div class="bind-item">
+              <Button @click="register" type="primary" class="cancel-bind" :disabled="loading">注册电报</Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button @click="cancelRegister" type="error" class="cancel-bind" :disabled="loading">取消注册</Button>
+            </div>
+          </div>
         </Card>
       </li>
 		</ul>
@@ -43,8 +63,9 @@
 </template>
 <script>  
 import {restore,delUserClient,getlClient} from '@/api/client'
-import {getUserClient,sendCode,confirmCode} from '@/api/share'
+import {getUserClient,sendCode,confirmCode,getProject,register} from '@/api/share'
 import {serviceType,clientStatus} from '@/config/client'
+import localList from '@/config/local'
 export default {
   data () {
     return {
@@ -57,22 +78,60 @@ export default {
         type:null,
         timer:0
       },
+      myPidList:[],
+      localList,
+      newRegister:{
+        binding:false,
+        myPid:null,
+        supportCountry:false,
+        locale:null
+      },
       countdown:null,
       loading:false
     }
   },
   mounted () {
     this.getClient()
+    this.getProject()
   },
   methods: {
+    register(){
+      if(!this.newRegister.myPid){
+        return this.$Notice.error({title:"请选择渠道"})
+      }
+      if(this.newRegister.supportCountry&&!this.newRegister.locale){
+        return this.$Notice.error({title:"请选择地区"})
+      }
+      this.loading = true
+      register(this.newRegister.myPid,this.newRegister.locale).then(({data})=>{
+        if(!data.success){
+          this.$Notice.error({title:data.msg.data||data.msg.error||data.msg})
+        }else{
+          this.newClient.binding=false
+          this.newRegister.binding=false
+          this.getClient()
+        }
+        this.loading = false
+      }).catch((e)=>{
+        console.log(e)
+        this.loading = false
+      })
+    },
+    changePid(key){
+      this.newRegister.myPid = this.myPidList[key].myPid
+      this.newRegister.supportCountry = this.myPidList[key].supportCountry
+    },
     getClient () {
-    
       getUserClient().then((r)=>{
-    
         if (r.data.success) {
-    
           this.clientList = r.data.msg
-    
+        }
+      })
+    },
+    getProject() {
+      getProject().then(({data})=>{
+        if (data.code === 1) {
+          this.myPidList = data.data
         }
       })
     },
@@ -80,7 +139,6 @@ export default {
       if (!this.newClient.phone.trim()) {
       
         return this.$Notice.error({title:"请输入telegram账号"})
-      
       }
       
       sendCode(this.newClient.phone).then((r)=>{
@@ -160,6 +218,9 @@ export default {
       this.newClient.type = null
 
       this.stopCount()
+    },
+    cancelRegister(){
+      this.newRegister.binding = false
     },
     startCount(){
 

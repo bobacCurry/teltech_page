@@ -21,6 +21,19 @@ export const confirmCode = (phone,code) => {
 	})
 }
 
+export const getProject = () => {
+  return axios.request({
+      url: `service/auth/get_project`,
+      method: 'post'
+  })
+}
+
+export const register = (myPid,locale) => {
+  return axios.request({
+      url: `service/auth/register?myPid=${myPid}&locale=${locale}`,
+      method: 'post'
+  })
+}
 
 export const addChat = (chatid,chatType,auth) => {
   	return axios.request({
