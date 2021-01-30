@@ -7,7 +7,6 @@
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit"></login-form>
-          <p class="login-tip">开推广账号请联系 <a href="https://t.me/GuevaraTech" target="_blank">@GuevaraTech</a></p>
         </div>
       </Card>
     </div>
