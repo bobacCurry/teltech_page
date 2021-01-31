@@ -262,7 +262,7 @@ export default{
     			return false
     		}
 
-	        if (file.size>300000) {
+	        if (file.size>600000) {
 
 	          return this.$Notice.error({title:'图片大小不得超过300kb'})
 	        }
