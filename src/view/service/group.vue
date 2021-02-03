@@ -19,7 +19,7 @@
 				</div>
 				<div class="option-item">
 					<Select v-model="order.phone" style="width:200px" placeholder="选择TG账号">
-				        <Option v-for="(item,key) in this.clientList" :value="item.phone" :key="key">{{ item.phone }}</Option>
+				        <Option v-for="(item,key) in this.clientList" :value="item.phone" :key="key">{{ item.phone }} - {{ item.info?item.info.first_name:'' }}</Option>
 				    </Select>
 				</div>
 				<div class="option-item">
